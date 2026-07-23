@@ -1,0 +1,284 @@
+---
+// products.astro - 产品服务页（中文版）
+// 产品数据来自 src/content/products/ 内容集合（.mdx 文件），新增产品只需加 .mdx 文件
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+// 产品数据来自 src/content/products/ 目录下的 .mdx 文件（内容集合），按 order 字段排序
+// 新增产品：在 src/content/products/ 里新建一个 .mdx 文件即可，汇总页与详情页自动生成
+const products = (await getCollection("products")).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+// 客户痛点 & 我们的承诺（来自产品介绍资料）
+const promises = [
+  { icon: "⏱️", title: "交期准时", desc: "大单排产规划清晰，PMC全程跟进，定期同步生产实拍与出货进度，避免延期。" },
+  { icon: "✅", title: "质量达标", desc: "ISO9001质量体系认证，配备试水机、盐雾测试机、人工汗测试机等全流程质检设备。" },
+  { icon: "🔍", title: "进度透明", desc: "生产进度透明可追溯，车间无纸化、电脑看板上线，ERP系统实现生产数据化运营。" },
+  { icon: "🎯", title: "样品一致", desc: "样品与大货严格一致，从原料甄选到出厂检验层层把关，确保交付零缺陷。" },
+];
+---
+
+<BaseLayout lang="zh" title="产品服务" description="同盛钟表产品与服务：实心带、包边带、表壳、网带、弹弓带五大品类，一站式定制解决方案。">
+  <!-- 页面横幅 -->
+  <section class="page-banner">
+    <h1>产品服务</h1>
+    <p>五大品类 · 一站式定制解决方案</p>
+  </section>
+
+  <!-- ====== 产品简介 ====== -->
+  <section class="section" id="intro">
+    <div class="container">
+      <h2 class="section-title">产品简介</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            同盛钟表深耕中高端手表配件领域二十载，主营实心带、包边带、表壳、网带、弹弓带五大品类，材质涵盖316L不锈钢、304不锈钢、6063航空铝料、钛2、钛5及钽（超硬特种材料）等高端品类，精准适配不同品牌定位、多元使用场景的定制化需求。
+          </p>
+          <p>
+            公司拥有全品类表带款式库，可满足多样化选型需求，更具备成熟的瑞士散件出口生产经验，产品标准对标国际高端市场。作为世界中高端手表品牌的长期供应商，客户涵盖VICTORINOX、VERSACE、TISSOT、FERRAGAMO、CITIZEN、FOSSIL等23个国际知名品牌。
+          </p>
+          <p>
+            公司可提供从来图设计、研发生产到成品出货的一站式定制服务，每年自主研发新款不少于100款，以创新实力与精工品质，赋能全球腕表品牌发展。
+          </p>
+        </div>
+        <div class="about-image">
+          <!-- 替换成你的图片: <img src="/images/products.jpg" alt="产品总览" /> -->
+          <img src="https://placehold.co/800x600/e9ecef/6c757d?text=产品总览" alt="产品总览" class="about-img" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 五大产品 ====== -->
+  {
+    products.map((p, i) => (
+      <section class={`section${i % 2 === 1 ? " bg-gray" : ""}`} id={p.id}>
+        <div class="container">
+          <div class="product-block">
+            <div class="product-info">
+              <span class="product-feature">{p.data.feature}</span>
+              <h2 class="product-title">{p.data.title}</h2>
+              <p class="product-desc">{p.data.desc}</p>
+              <div class="product-meta">
+                <div class="meta-item">
+                  <span class="meta-label">材质</span>
+                  <span class="meta-value">{p.data.materials}</span>
+                </div>
+                <div class="meta-item">
+                  <span class="meta-label">产能</span>
+                  <span class="meta-value">{p.data.capacity}</span>
+                </div>
+              </div>
+              <a class="product-more" href={`/products/${p.id}/`}>查看详情 →</a>
+            </div>
+            <div class="product-image">
+              {/* 替换成产品图: <img src="/images/xxx.jpg" alt={p.data.title} /> */}
+              <img src={`https://placehold.co/600x400/e9ecef/6c757d?text=${p.data.title}`} alt={p.data.title} class="product-img" />
+            </div>
+          </div>
+        </div>
+      </section>
+    ))
+  }
+
+  <!-- ====== 我们的承诺 ====== -->
+  <section class="section bg-gray" id="promise">
+    <div class="container">
+      <h2 class="section-title">我们的承诺</h2>
+      <p class="section-subtitle">直击行业痛点，让您合作无忧。</p>
+      <div class="cards-grid cols-4">
+        {
+          promises.map((item) => (
+            <div class="card">
+              <div class="card-icon">{item.icon}</div>
+              <h3 class="card-title">{item.title}</h3>
+              <p class="card-desc">{item.desc}</p>
+            </div>
+          ))
+        }
+      </div>
+      <div class="center-btn">
+        <a href="/contact/" class="btn btn-primary">咨询定制</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ===== 产品服务页专属样式 ===== */
+
+  /* 页面横幅 */
+  .page-banner {
+    background: linear-gradient(135deg, #1a1d23, #3a4250);
+    color: #fff;
+    text-align: center;
+    padding: 80px 24px 64px;
+  }
+  .page-banner h1 {
+    font-size: 34px;
+    letter-spacing: 4px;
+    margin-bottom: 14px;
+  }
+  .page-banner p {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.75);
+    letter-spacing: 2px;
+  }
+
+  /* 产品简介 图文 */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (min-width: 768px) {
+    .about-grid {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+  .about-text p {
+    font-size: 15px;
+    line-height: 2;
+    color: var(--color-text-light);
+    margin-bottom: 16px;
+    text-indent: 2em;
+  }
+  .about-img,
+  .product-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  /* 产品图容器：裁剪悬停时放大的图片 */
+  .product-image {
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  .product-img {
+    transition: transform 0.35s;
+  }
+  .product-block:hover .product-img {
+    transform: scale(1.04);
+  }
+
+  /* 产品区块（左文右图） */
+  .product-block {
+    position: relative; /* 拉伸链接锚点：让整个区块（含图片）可点击 */
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (min-width: 768px) {
+    .product-block {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+  .product-feature {
+    display: inline-block;
+    background: var(--color-accent);
+    color: #fff;
+    font-size: 13px;
+    padding: 5px 16px;
+    border-radius: 999px;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .product-title {
+    font-size: 30px;
+    color: var(--color-primary);
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+  }
+  .product-desc {
+    font-size: 15px;
+    line-height: 2;
+    color: var(--color-text-light);
+    margin-bottom: 24px;
+  }
+  .product-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    border-top: 1px solid var(--color-border);
+    padding-top: 20px;
+  }
+  .meta-item {
+    display: flex;
+    gap: 16px;
+    font-size: 14px;
+  }
+  .meta-label {
+    flex-shrink: 0;
+    width: 44px;
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+  .meta-value {
+    color: var(--color-text-light);
+    line-height: 1.7;
+  }
+  .product-more {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  /* 拉伸链接：把“查看详情”的点击区域扩大到整个 product-block（含图片） */
+  .product-more::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+  .product-more:hover {
+    text-decoration: underline;
+  }
+
+  /* 卡片网格（4列） */
+  .cards-grid.cols-4 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  @media (min-width: 768px) {
+    .cards-grid.cols-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .card {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+  }
+  .card-icon {
+    font-size: 32px;
+    margin-bottom: 14px;
+  }
+  .card-title {
+    font-size: 17px;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: var(--color-text-light);
+    line-height: 1.8;
+  }
+
+  .center-btn {
+    text-align: center;
+    margin-top: 44px;
+  }
+</style>

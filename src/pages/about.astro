@@ -1,0 +1,418 @@
+---
+// about.astro - 企业介绍页（中文版）
+// 锚点：#intro 企业介绍 / #philosophy 企业理念 / #history 发展历程
+//       #quality 质量保证 / #certificates 资质证书 / #clients 合作客户
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// 发展历程数据（来自《同盛钟表有限公司发展历程》）
+const timeline = [
+  {
+    year: "2004",
+    text: "东莞市同盛钟表有限公司的前身——利昌五金制品厂于3月在东莞市石排成立，专注于不锈钢表带胚料压加工，涵盖工模、剪板、冲压、氮化、溜光等多道工序。",
+  },
+  {
+    year: "2008",
+    text: "成立石碣同盛五金制品厂，新增钻装磨项目，进一步延伸产品线。",
+  },
+  {
+    year: "2010",
+    text: "新增包边带业务产品线，进一步丰富多元化战略，开拓新市场。",
+  },
+  {
+    year: "2013",
+    text: "迁址东城余屋工业区，更名为“同盛钟表有限公司”；实芯带与包边带月产能突破12.7万条；首批拓展训练完成。",
+  },
+  {
+    year: "2014",
+    text: "新增自动磨光部；ISO9001:2008质量体系认证通过；第三批精英拓展训练毕业。",
+  },
+  {
+    year: "2016",
+    text: "新增精溜光部门，生产部门小组织独立核算；新增自动磨光机，加速推进磨光自动化；全面上线ERP系统，实现生产数据化运营；车间无纸化，电脑看板上线。",
+  },
+  {
+    year: "2019",
+    text: "新增大吨位油压机，一模多穴升级开启。",
+  },
+  {
+    year: "2020",
+    text: "疫情期间，公司将实心带和包边带分拆运营：同盛钟表有限公司负责实心带业务，创盛钟表有限公司负责包边带业务；创盛钟表带胚部于11月份成立。",
+  },
+  {
+    year: "2022",
+    text: "东莞市创盛钟表有限公司独立注册成立；包边带月产量突破10万条；新增激光切割机；新增CNC部门。",
+  },
+  {
+    year: "2024",
+    text: "新厂房升级，迁至东城峡口；表壳事业部于5月正式成立，CNC加工部同步启用，实现精密加工自主化；新增表壳NC切削、光机、磨光小组；包边带月产量突破11万条。",
+  },
+  {
+    year: "2026",
+    text: "表壳实现月产量4万套，实心带月产量达8万条，包边带月产量达11万条；新增6台五轴CNC机器，自动对钻机数量达到24台；第六批拓展训练圆满成功。",
+  },
+];
+
+// 资质证书数据（可直接修改）
+const certificates = [
+  "ISO9001 质量管理体系认证",
+  "ISO9001:2008 质量体系认证（2014年通过）",
+  "ERP 管理系统全面上线（2016年）",
+  "瑞士散件出口生产经验",
+  "全流程质检设备体系",
+  "多项自主研发新款（每年不少于100款）",
+];
+
+// 合作客户数据（来自公司介绍资料，后续可换成 logo 图片）
+const clients = [
+  "VICTORINOX（瑞士军刀）",
+  "VERSACE（范思哲）",
+  "TISSOT（天梭）",
+  "PHILIPP PLEIN",
+  "FERRAGAMO（菲拉格慕）",
+  "TITAN（泰坦）",
+  "FESTINA",
+  "TIMEX（天美时）",
+  "BOSS",
+  "MICHELE（米雪儿）",
+  "BULOVA / CRAVELLE（宝路华）",
+  "FOSSIL（福士）",
+  "CITIZEN（西铁城）",
+  "GUESS",
+  "COACH（蔻驰）",
+  "TOUS",
+  "MICHAEL KORS",
+  "LOLA ROSE（罗拉）",
+  "DKNY",
+  "Kenneth Cole",
+  "TOMMY HILFIGER",
+  "LACOSTE（法国鳄鱼）",
+  "DIESEL（迪赛）",
+];
+---
+
+<BaseLayout lang="zh" title="企业介绍" description="了解东莞市同盛钟表有限公司的企业简介、企业理念、发展历程、质量保证、资质证书与合作客户。">
+  <!-- 页面横幅 -->
+  <section class="page-banner">
+    <h1>企业介绍</h1>
+    <p>深耕中高端手表配件领域二十载，用品质赢得信赖</p>
+  </section>
+
+  <!-- ====== 企业介绍 ====== -->
+  <section class="section" id="intro">
+    <div class="container">
+      <h2 class="section-title">企业介绍</h2>
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            东莞市同盛钟表有限公司成立于2004年4月，深耕中高端手表配件领域二十载，始终坚守“优质、高效、诚信”的经营理念，专注为全球高端腕表品牌打造兼具文化底蕴与精湛品质的手表带产品。公司拥有全品类表带款式库，可满足多样化选型需求，更具备成熟的瑞士散件出口生产经验，产品标准对标国际高端市场。
+          </p>
+          <p>
+            旗下实心表带均甄选顶级原料精制而成，材质涵盖316L不锈钢、304不锈钢、6063航空铝料、钛2、钛5及钽（超硬特种材料）等高端品类，精准适配不同品牌定位、多元使用场景的定制化需求。
+          </p>
+          <p>
+            公司坐拥5000㎡现代化标准化生产基地，配备冲床、油压机、CNC机床、线割机、激光切割机、火花机、电脑钻孔机、自动对钻机、自动磨光机等先进生产设备200余台，不锈钢实芯钢带月产能高达8万条。现有员工190人，其中冲压、钻孔、锣铣、组装、磨光、CNC等专业技术人才50人。
+          </p>
+          <p>
+            旗下兄弟企业东莞市创盛钟表有限公司起步于2008年，2022年3月正式注册成立，是一家集不锈钢包边带、网带、表壳研发、生产、加工于一体的专业腕表配件企业。目前已形成稳定规模化产能：包边带10万条/月、网带3万条/月、表壳4万套/月，可提供从来图设计、研发生产到成品出货的一站式定制服务，每年自主研发新款不少于100款。
+          </p>
+        </div>
+        <div class="about-image">
+          <!-- 替换成你的图片: <img src="/images/company.jpg" alt="公司实景" /> -->
+          <img src="https://placehold.co/800x600/e9ecef/6c757d?text=公司实景" alt="公司实景" class="about-img" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 企业理念 ====== -->
+  <section class="section bg-gray" id="philosophy">
+    <div class="container">
+      <h2 class="section-title">企业理念</h2>
+      <p class="section-subtitle">优质 · 高效 · 诚信</p>
+      <div class="cards-grid cols-4">
+        <div class="card">
+          <div class="card-icon">🎯</div>
+          <h3 class="card-title">经营理念</h3>
+          <p class="card-desc">优质、高效、诚信，专注为全球高端腕表品牌打造精湛品质的手表带产品。</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💎</div>
+          <h3 class="card-title">质量方针</h3>
+          <p class="card-desc">规范管理、质量第一、顾客至上、持续改进，持续迭代产品品质与服务水准。</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🏭</div>
+          <h3 class="card-title">管理理念</h3>
+          <p class="card-desc">自2006年推行6S管理制度，建立完善的会议、培训、考核及激励体系，实现规范化运营。</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🤝</div>
+          <h3 class="card-title">企业精神</h3>
+          <p class="card-desc">以持续学习与技术创新，不断夯实企业核心竞争力，与合作伙伴共同成长。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 发展历程 ====== -->
+  <section class="section" id="history">
+    <div class="container">
+      <h2 class="section-title">发展历程</h2>
+      <div class="timeline">
+        {
+          timeline.map((item) => (
+            <div class="timeline-item">
+              <div class="timeline-year">{item.year}年</div>
+              <div class="timeline-dot" />
+              <div class="timeline-text">{item.text}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 质量保证 ====== -->
+  <section class="section bg-gray" id="quality">
+    <div class="container">
+      <h2 class="section-title">质量保证</h2>
+      <p class="section-subtitle">
+        公司恪守“规范管理、质量第一、顾客至上、持续改进”的质量方针，配备全流程质检设备，从原材料采购到成品出厂层层把关。
+      </p>
+      <div class="cards-grid cols-4">
+        <div class="card">
+          <div class="card-num">01</div>
+          <h3 class="card-title">原料甄选</h3>
+          <p class="card-desc">严选316L/304不锈钢、6063航空铝、钛2、钛5、钽等高端原料，从源头保证品质。</p>
+        </div>
+        <div class="card">
+          <div class="card-num">02</div>
+          <h3 class="card-title">精密加工</h3>
+          <p class="card-desc">CNC、NC车床、激光切割、自动对钻等300余台设备精密加工，尺寸误差控制在微米级。</p>
+        </div>
+        <div class="card">
+          <div class="card-num">03</div>
+          <h3 class="card-title">专业检测</h3>
+          <p class="card-desc">配备试水机、摇摆测试机、人工汗测试机、盐雾测试机、自动恒温电热板等全流程质检设备。</p>
+        </div>
+        <div class="card">
+          <div class="card-num">04</div>
+          <h3 class="card-title">体系认证</h3>
+          <p class="card-desc">2014年通过ISO9001:2008质量管理体系认证，2016年全面上线ERP系统，生产数据化运营。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 资质证书 ====== -->
+  <section class="section" id="certificates">
+    <div class="container">
+      <h2 class="section-title">资质证书</h2>
+      <div class="cert-grid">
+        {
+          certificates.map((cert) => (
+            <div class="cert-item">
+              <div class="cert-icon">📜</div>
+              <span>{cert}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 合作客户 ====== -->
+  <section class="section bg-gray" id="clients">
+    <div class="container">
+      <h2 class="section-title">合作客户</h2>
+      <p class="section-subtitle">
+        作为世界中高端手表品牌的长期供应商，同盛·创盛钟表的客户涵盖以下国际知名品牌。
+      </p>
+      <div class="cert-grid">
+        {
+          clients.map((client) => (
+            <div class="cert-item">
+              <div class="cert-icon">🏢</div>
+              <span>{client}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ===== 企业介绍页专属样式 ===== */
+
+  /* 页面横幅 */
+  .page-banner {
+    background: linear-gradient(135deg, #1a1d23, #3a4250);
+    color: #fff;
+    text-align: center;
+    padding: 80px 24px 64px;
+  }
+  .page-banner h1 {
+    font-size: 34px;
+    letter-spacing: 4px;
+    margin-bottom: 14px;
+  }
+  .page-banner p {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.75);
+    letter-spacing: 2px;
+  }
+
+  /* 企业介绍 图文 */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (min-width: 768px) {
+    .about-grid {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+  .about-text p {
+    font-size: 15px;
+    line-height: 2;
+    color: var(--color-text-light);
+    margin-bottom: 16px;
+    text-indent: 2em;
+  }
+  .about-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  /* 卡片网格（4列） */
+  .cards-grid.cols-4 {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  @media (min-width: 768px) {
+    .cards-grid.cols-4 {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .card {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 32px 24px;
+    text-align: center;
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+  }
+  .card-icon {
+    font-size: 32px;
+    margin-bottom: 14px;
+  }
+  .card-num {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: 12px;
+  }
+  .card-title {
+    font-size: 17px;
+    color: var(--color-primary);
+    margin-bottom: 10px;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: var(--color-text-light);
+    line-height: 1.8;
+  }
+
+  /* 时间轴 */
+  .timeline {
+    max-width: 760px;
+    margin: 48px auto 0;
+    position: relative;
+    padding-left: 32px;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 6px;
+    bottom: 6px;
+    width: 2px;
+    background: var(--color-border);
+  }
+  .timeline-item {
+    position: relative;
+    padding: 0 0 36px 24px;
+  }
+  .timeline-item:last-child {
+    padding-bottom: 0;
+  }
+  .timeline-dot {
+    position: absolute;
+    left: -30px;
+    top: 5px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px var(--color-accent);
+  }
+  .timeline-year {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: 6px;
+  }
+  .timeline-text {
+    font-size: 14px;
+    color: var(--color-text-light);
+    line-height: 1.9;
+  }
+
+  /* 资质 / 客户 网格 */
+  .cert-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 40px;
+  }
+  @media (min-width: 600px) {
+    .cert-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 900px) {
+    .cert-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .cert-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 20px 22px;
+    font-size: 14px;
+    color: var(--color-text);
+    transition: box-shadow 0.2s;
+  }
+  .cert-item:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  }
+  .cert-icon {
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+</style>

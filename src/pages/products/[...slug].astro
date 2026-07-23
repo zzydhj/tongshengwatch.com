@@ -1,0 +1,25 @@
+---
+// products/[...slug].astro - 产品详情动态路由
+// ============================================================
+// 自动读取 src/content/products/ 下的所有 .mdx 文件，
+// 每个文件生成一个详情页：/products/文件名/
+// 新增产品只需在 src/content/products/ 里加 .mdx 文件，无需改这里。
+// ============================================================
+import { getCollection, render } from "astro:content";
+import ProductDetailLayout from "../../layouts/ProductDetailLayout.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("products");
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<ProductDetailLayout data={entry.data}>
+  <Content />
+</ProductDetailLayout>

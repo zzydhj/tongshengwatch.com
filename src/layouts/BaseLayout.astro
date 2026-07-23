@@ -1,0 +1,55 @@
+---
+// BaseLayout.astro - 全站统一布局（Header + 内容插槽 + Footer，支持双语）
+// 新建页面时只需要: <BaseLayout lang="zh" title="页面标题"> ...你的内容... </BaseLayout>
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { siteConfig, type Lang } from "../config";
+import "../styles/global.css";
+
+interface Props {
+  lang?: Lang; // "zh" 或 "en"，默认 zh
+  title?: string; // 页面标题，会拼接站点名
+  description?: string; // 页面描述（SEO）
+}
+
+const lang: Lang = Astro.props.lang ?? "zh";
+const { title, description = siteConfig[lang].description } = Astro.props;
+const siteName = siteConfig[lang].name;
+const pageTitle = title ? `${title} - ${siteName}` : siteName;
+const htmlLang = lang === "zh" ? "zh-CN" : "en";
+---
+
+<!doctype html>
+<html lang={htmlLang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <Header lang={lang} />
+
+    <!-- 页面内容区域：每个页面自己填充 -->
+    <main class="page-main">
+      <slot />
+    </main>
+
+    <Footer lang={lang} />
+  </body>
+</html>
+
+<style>
+  /* header 固定高度 70px，内容区需要留出空间 */
+  .page-main {
+    padding-top: 70px;
+    min-height: 60vh;
+  }
+  /* 移动端底部快捷栏高度约 56px，内容底部留出空间 */
+  @media (max-width: 899px) {
+    .page-main {
+      padding-bottom: 56px;
+    }
+  }
+</style>

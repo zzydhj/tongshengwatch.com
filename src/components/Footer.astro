@@ -1,0 +1,275 @@
+---
+// Footer.astro - 页脚组件（多栏链接 + 联系信息 + 备案 + 移动端快捷栏，支持双语）
+import {
+  siteConfig,
+  contactInfo,
+  footerText,
+  mobileActions,
+  localizeHref,
+  type Lang,
+} from "../config";
+
+interface Props {
+  lang?: Lang;
+}
+const lang: Lang = Astro.props.lang ?? "zh";
+const site = siteConfig[lang];
+const t = footerText[lang];
+const actions = mobileActions[lang];
+const address = lang === "zh" ? contactInfo.address : contactInfo.addressEn;
+
+// 移动端快捷栏图标（完整内联 SVG，无需外部图标库）
+const icons: Record<string, string> = {
+  home: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>',
+  news: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 10h16M4 14h10M4 18h10"/></svg>',
+  phone: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>',
+  location: '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>',
+};
+---
+
+<footer class="site-footer">
+  <div class="footer-main">
+    <div class="footer-grid">
+      <!-- 第一栏：Logo + 简介 -->
+      <div class="footer-col footer-brand">
+        <a href={localizeHref("/", lang)} class="footer-logo">
+          <img src={siteConfig.logo} alt={site.name} />
+          <span>{site.name}</span>
+        </a>
+        <p class="footer-desc">{site.description}</p>
+      </div>
+
+      <!-- 第二栏：关于我们 -->
+      <div class="footer-col">
+        <h4 class="footer-title">{t.aboutUs}</h4>
+        <ul class="footer-links">
+          {t.aboutLinks.map((link) => (
+            <li><a href={localizeHref(link.href, lang)}>{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- 第三栏：产品服务 -->
+      <div class="footer-col">
+        <h4 class="footer-title">{t.products}</h4>
+        <ul class="footer-links">
+          {t.productLinks.map((link) => (
+            <li><a href={localizeHref(link.href, lang)}>{link.label}</a></li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- 第四栏：联系我们 -->
+      <div class="footer-col">
+        <h4 class="footer-title">{t.contactUs}</h4>
+        <ul class="footer-contact">
+          <li>{t.address}：{address}</li>
+          {contactInfo.contacts.map((c) => (
+            <li>
+              {lang === "zh" ? c.name : c.nameEn}：<a href={`tel:${c.tel}`}>{c.tel}</a>
+            </li>
+          ))}
+          {contactInfo.emails.map((e) => (
+            <li>
+              {lang === "zh" ? e.label : e.labelEn}：<a href={`mailto:${e.email}`}>{e.email}</a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 版权 & 备案 -->
+  <div class="footer-bottom">
+    <div class="footer-bottom-inner">
+      <span>{site.copyright}</span>
+      <span class="footer-beian">
+        <a href={siteConfig.gonganUrl} target="_blank" rel="noopener noreferrer">
+          {siteConfig.gongan}
+        </a>
+        <i class="beian-divider">|</i>
+        <a href={siteConfig.icpUrl} target="_blank" rel="noopener noreferrer">
+          {siteConfig.icp}
+        </a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<!-- 移动端底部快捷操作栏 -->
+<nav class="mobile-actions" aria-label="快捷操作">
+  {
+    actions.map((action) => (
+      <a
+        href={localizeHref(action.href, lang)}
+        class="mobile-action-item"
+        target={action.href.startsWith("http") ? "_blank" : undefined}
+      >
+        <Fragment set:html={icons[action.icon]} />
+        <span class="mobile-action-text">{action.label}</span>
+      </a>
+    ))
+  }
+</nav>
+
+<style>
+  /* ========== Footer 主体 ========== */
+  .site-footer {
+    background: #1a1d23;
+    color: #b0b6bf;
+  }
+  .footer-main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 56px 24px 40px;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  @media (min-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 2fr 1fr 1fr 1.6fr;
+      gap: 40px;
+    }
+  }
+
+  /* 品牌栏 */
+  .footer-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .footer-logo img {
+    height: 40px;
+    width: auto;
+  }
+  .footer-logo span {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 2px;
+  }
+  .footer-desc {
+    font-size: 13px;
+    line-height: 1.9;
+    color: #8a919c;
+    max-width: 320px;
+  }
+
+  /* 链接栏 */
+  .footer-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    margin: 0 0 18px;
+    letter-spacing: 1px;
+  }
+  .footer-links,
+  .footer-contact {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .footer-links li {
+    margin-bottom: 12px;
+  }
+  .footer-links a {
+    color: #b0b6bf;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover {
+    color: #fff;
+  }
+  .footer-contact li {
+    font-size: 13px;
+    line-height: 2.1;
+    word-break: break-all;
+  }
+  .footer-contact a {
+    color: #b0b6bf;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-contact a:hover {
+    color: #fff;
+  }
+
+  /* 版权栏 */
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .footer-bottom-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    text-align: center;
+  }
+  @media (min-width: 768px) {
+    .footer-bottom-inner {
+      flex-direction: row;
+      justify-content: center;
+      gap: 16px;
+    }
+  }
+  .footer-beian a {
+    color: #8a919c;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-beian a:hover {
+    color: #fff;
+  }
+  .beian-divider {
+    margin: 0 10px;
+    font-style: normal;
+    color: #555;
+  }
+
+  /* ========== 移动端底部快捷栏 ========== */
+  .mobile-actions {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border-top: 1px solid #e5e5e5;
+    z-index: 999;
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  @media (min-width: 900px) {
+    .mobile-actions {
+      display: none;
+    }
+  }
+  .mobile-action-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    padding: 9px 0 7px;
+    text-decoration: none;
+    color: #555;
+    transition: color 0.2s;
+  }
+  .mobile-action-item:active {
+    color: #000;
+    background: #f7f7f7;
+  }
+  .mobile-action-text {
+    font-size: 11px;
+  }
+</style>

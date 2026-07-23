@@ -1,0 +1,266 @@
+---
+// index.astro - 首页（东莞市同盛钟表有限公司）
+// 每个页面的写法：引入 BaseLayout，然后在里面填充自己的 HTML 内容块
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+// 企业发展数字（来自公司介绍资料）
+const stats = [
+  { value: "20+", label: "年行业深耕" },
+  { value: "280+", label: "在职员工" },
+  { value: "300+", label: "生产设备" },
+  { value: "8万条", label: "实心带月产能" },
+  { value: "10万条", label: "包边带月产能" },
+  { value: "4万套", label: "表壳月产能" },
+];
+
+// 五大主营产品（img 为网络占位图，后续替换为真实产品图）
+const products = [
+  {
+    img: "https://placehold.co/600x400/e9ecef/6c757d?text=实心带",
+    title: "实心带",
+    desc: "含钼元素，耐人体汗液、海水、化妆品腐蚀，日常佩戴不易氧化发黑，适合运动、海边等场景。",
+    href: "/products/#solid",
+  },
+  {
+    img: "https://placehold.co/600x400/e9ecef/6c757d?text=包边带",
+    title: "包边带",
+    desc: "质感高级，可做拉丝、镜面、喷砂、PVD电镀（金、枪黑、间金、玫瑰金），轻奢商务全覆盖。",
+    href: "/products/#edge",
+  },
+  {
+    img: "https://placehold.co/600x400/e9ecef/6c757d?text=表壳",
+    title: "表壳",
+    desc: "支持6063铝料、陶瓷、304/316L不锈钢、钛2、钛5、钽等材质，兼顾品牌大单与中小批量订单。",
+    href: "/products/#case",
+  },
+  {
+    img: "https://placehold.co/600x400/e9ecef/6c757d?text=网带",
+    title: "网带",
+    desc: "快速响应+稳定交期，接单24小时内出初步报价与方案，PMC全程跟进生产进度。",
+    href: "/products/#mesh",
+  },
+  {
+    img: "https://placehold.co/600x400/e9ecef/6c757d?text=弹弓带",
+    title: "弹弓带",
+    desc: "全链路一站式定制服务，从图片到成品，可根据客户样板起模做货，海量产品库可供选择。",
+    href: "/products/#spring",
+  },
+];
+---
+
+<BaseLayout lang="zh">
+  <!-- ====== 横幅轮播区（替换成自己的 banner 图） ====== -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        深耕中高端手表配件二十载<br />为全球腕表品牌打造精工品质
+      </h1>
+      <p class="hero-slogan">优质 · 高效 · 诚信</p>
+      <a href="/about/" class="btn btn-primary">了解企业</a>
+    </div>
+  </section>
+
+  <!-- ====== 企业发展数据 ====== -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">企业实力</h2>
+      <div class="stats-grid">
+        {
+          stats.map((item) => (
+            <div class="stat-item">
+              <div class="stat-value">{item.value}</div>
+              <div class="stat-label">{item.label}</div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 企业简介（左文右图示例块） ====== -->
+  <section class="section bg-gray">
+    <div class="container">
+      <div class="intro-block">
+        <div class="intro-text">
+          <h2 class="block-title">企业简介</h2>
+          <p class="block-desc">
+            东莞市同盛钟表有限公司成立于2004年4月，深耕中高端手表配件领域二十载，始终坚守"优质、高效、诚信"的经营理念，专注为全球高端腕表品牌打造兼具文化底蕴与精湛品质的手表带产品。公司拥有全品类表带款式库，具备成熟的瑞士散件出口生产经验，产品标准对标国际高端市场。
+          </p>
+          <p class="block-desc">
+            旗下兄弟企业东莞市创盛钟表有限公司是一家集不锈钢包边带、网带、表壳研发、生产、加工于一体的专业腕表配件企业，可提供从来图设计、研发生产到成品出货的一站式定制服务。
+          </p>
+          <a href="/about/" class="btn btn-outline">了解详情</a>
+        </div>
+        <div class="intro-image">
+          <!-- 替换成你的图片: <img src="/images/xxx.jpg" alt="企业简介" /> -->
+          <img src="https://placehold.co/800x600/e9ecef/6c757d?text=企业简介" alt="企业简介" class="intro-img" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 产品与服务 ====== -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">产品与服务</h2>
+      <p class="section-subtitle">
+        公司提供实心带、包边带、表壳、网带、弹弓带五大品类，材质涵盖316L不锈钢、304不锈钢、6063航空铝、钛2、钛5及钽等高端品类，可根据客户需求提供定制服务。
+      </p>
+      <div class="cards-grid">
+        {
+          products.map((p) => (
+            <a href={p.href} class="card">
+              <img src={p.img} alt={p.title} class="card-img" />
+              <h3 class="card-title">{p.title}</h3>
+              <p class="card-desc">{p.desc}</p>
+            </a>
+          ))
+        }
+      </div>
+      <div class="center-btn">
+        <a href="/products/" class="btn btn-primary">查看产品</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ===== 首页专属样式（每个页面可以写自己的 <style>） ===== */
+
+  /* 横幅 */
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 520px;
+    /* 替换成你的 banner 图: 把下方占位图 url 换成 /images/banner.jpg */
+    background-image:
+      linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+      url("https://placehold.co/1920x600/2c3e50/ffffff?text=首页横幅");
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding: 80px 24px;
+  }
+  .hero-title {
+    font-size: 36px;
+    color: #fff;
+    letter-spacing: 3px;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .hero-slogan {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 8px;
+    margin-bottom: 36px;
+  }
+  @media (max-width: 767px) {
+    .hero {
+      min-height: 380px;
+    }
+    .hero-title {
+      font-size: 24px;
+    }
+  }
+
+  /* 数据统计 */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .stat-item {
+    text-align: center;
+    padding: 24px 12px;
+  }
+  .stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--color-accent);
+    margin-bottom: 8px;
+  }
+  .stat-label {
+    font-size: 14px;
+    color: var(--color-text-light);
+  }
+
+  /* 简介块 */
+  .intro-block {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (min-width: 768px) {
+    .intro-block {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .block-title {
+    font-size: 28px;
+    color: var(--color-primary);
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+  }
+  .block-desc {
+    font-size: 15px;
+    line-height: 2;
+    color: var(--color-text-light);
+    margin-bottom: 20px;
+  }
+  .intro-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+
+  /* 卡片 */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  @media (min-width: 768px) {
+    .cards-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .card {
+    display: block;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 36px 28px;
+    text-align: center;
+    text-decoration: none;
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .card:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+  }
+  .card-img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+  .card-title {
+    font-size: 18px;
+    color: var(--color-primary);
+    margin-bottom: 12px;
+  }
+  .card-desc {
+    font-size: 14px;
+    color: var(--color-text-light);
+    line-height: 1.8;
+  }
+  .center-btn {
+    text-align: center;
+    margin-top: 40px;
+  }
+</style>

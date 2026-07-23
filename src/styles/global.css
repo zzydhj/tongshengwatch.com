@@ -1,0 +1,149 @@
+/* ============================================
+   global.css - 全局基础样式（重置 + 通用工具类）
+   ============================================ */
+
+/* ---------- CSS 变量（全站配色在这里改） ---------- */
+:root {
+  --color-primary: #000000; /* 主色 */
+  --color-accent: #2d70f7; /* 强调色（数字高亮等） */
+  --color-text: #333333; /* 正文色 */
+  --color-text-light: #666666; /* 浅正文色 */
+  --color-bg: #ffffff; /* 背景色 */
+  --color-bg-gray: #f7f8fa; /* 灰色背景块 */
+  --color-border: #e8e8e8; /* 边框色 */
+  --header-height: 70px;
+  --max-width: 1200px;
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  border: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* ---------- 通用工具类 ---------- */
+
+/* 内容容器：限宽居中 */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* 区块通用间距 */
+.section {
+  padding: 72px 0;
+}
+@media (max-width: 767px) {
+  .section {
+    padding: 48px 0;
+  }
+}
+
+/* 区块标题 */
+.section-title {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: 16px;
+  letter-spacing: 2px;
+}
+@media (max-width: 767px) {
+  .section-title {
+    font-size: 24px;
+  }
+}
+
+/* 区块副标题 */
+.section-subtitle {
+  font-size: 15px;
+  color: var(--color-text-light);
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 48px;
+  line-height: 1.8;
+}
+
+/* 灰色背景区块 */
+.bg-gray {
+  background: var(--color-bg-gray);
+}
+
+/* 通用按钮 */
+.btn {
+  display: inline-block;
+  padding: 12px 32px;
+  font-size: 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, opacity 0.2s;
+  border: none;
+}
+.btn-primary {
+  background: var(--color-accent);
+  color: #fff;
+}
+.btn-primary:hover {
+  opacity: 0.88;
+}
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+}
+.btn-outline:hover {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+/* 锚点定位偏移（避免被固定 header 遮挡） */
+[id] {
+  scroll-margin-top: calc(var(--header-height) + 16px);
+}

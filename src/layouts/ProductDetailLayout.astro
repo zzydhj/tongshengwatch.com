@@ -1,0 +1,237 @@
+---
+// ProductDetailLayout.astro - 产品详情页布局（MDX 文档套用的框架）
+// 由动态路由 src/pages/products/[...slug].astro 调用，MDX 正文渲染在 <slot /> 里
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  data: {
+    title: string;
+    feature: string;
+    materials: string;
+    capacity: string;
+    summary?: string;
+  };
+}
+
+const { data } = Astro.props;
+---
+
+<BaseLayout lang="zh" title={data.title} description={data.summary ?? `${data.title} - 同盛钟表产品详情。`}>
+  <!-- ====== 产品头部 ====== -->
+  <section class="product-header">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">首页</a>
+        <span class="sep">&gt;</span>
+        <a href="/products/">产品服务</a>
+        <span class="sep">&gt;</span>
+        <span class="current">{data.title}</span>
+      </nav>
+      <span class="product-feature">{data.feature}</span>
+      <h1 class="product-title">{data.title}</h1>
+    </div>
+  </section>
+
+  <!-- ====== 关键信息条 ====== -->
+  <section class="meta-strip">
+    <div class="container">
+      <div class="meta-cards">
+        <div class="meta-card">
+          <span class="meta-label">材质</span>
+          <span class="meta-value">{data.materials}</span>
+        </div>
+        <div class="meta-card">
+          <span class="meta-label">产能</span>
+          <span class="meta-value">{data.capacity}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 产品详情正文（MDX 内容渲染在这里） ====== -->
+  <section class="section">
+    <div class="container">
+      <div class="product-body">
+        <slot />
+      </div>
+
+      <div class="back-wrap">
+        <a href="/products/" class="btn btn-outline">&larr; 返回产品服务</a>
+        <a href="/contact/" class="btn btn-primary">咨询定制</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ===== 产品详情页布局样式 ===== */
+
+  /* 产品头部 */
+  .product-header {
+    background: linear-gradient(135deg, #1a1d23, #3a4250);
+    color: #fff;
+    padding: 48px 0 44px;
+  }
+  .breadcrumb {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 22px;
+  }
+  .breadcrumb a {
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .breadcrumb a:hover {
+    color: #fff;
+  }
+  .breadcrumb .sep {
+    margin: 0 8px;
+    color: rgba(255, 255, 255, 0.35);
+  }
+  .breadcrumb .current {
+    color: #fff;
+  }
+  .product-feature {
+    display: inline-block;
+    background: var(--color-accent);
+    color: #fff;
+    font-size: 13px;
+    padding: 5px 16px;
+    border-radius: 999px;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .product-title {
+    font-size: 32px;
+    letter-spacing: 2px;
+    line-height: 1.4;
+  }
+  @media (max-width: 767px) {
+    .product-title {
+      font-size: 24px;
+    }
+  }
+
+  /* 关键信息条 */
+  .meta-strip {
+    background: var(--color-bg-gray);
+    border-bottom: 1px solid var(--color-border);
+    padding: 24px 0;
+  }
+  .meta-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  @media (min-width: 768px) {
+    .meta-cards {
+      grid-template-columns: 1.6fr 1fr;
+    }
+  }
+  .meta-card {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 16px 22px;
+    display: flex;
+    gap: 18px;
+    align-items: baseline;
+    font-size: 14px;
+  }
+  .meta-label {
+    flex-shrink: 0;
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+  .meta-value {
+    color: var(--color-text-light);
+    line-height: 1.7;
+  }
+
+  /* 产品正文（MDX 渲染出的元素） */
+  .product-body {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .product-body :global(p) {
+    font-size: 15px;
+    line-height: 2.1;
+    color: var(--color-text);
+    margin-bottom: 22px;
+    text-indent: 2em;
+  }
+  .product-body :global(h2) {
+    font-size: 21px;
+    color: var(--color-primary);
+    margin: 36px 0 18px;
+    padding-left: 12px;
+    border-left: 4px solid var(--color-accent);
+    line-height: 1.4;
+  }
+  .product-body :global(h3) {
+    font-size: 17px;
+    color: var(--color-primary);
+    margin: 28px 0 14px;
+  }
+  .product-body :global(img) {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 8px 0 26px;
+  }
+  .product-body :global(ul),
+  .product-body :global(ol) {
+    margin: 0 0 22px;
+    padding-left: 2.5em;
+    font-size: 15px;
+    line-height: 2;
+    color: var(--color-text);
+  }
+  .product-body :global(blockquote) {
+    margin: 0 0 22px;
+    padding: 14px 20px;
+    background: var(--color-bg-gray);
+    border-left: 4px solid var(--color-accent);
+    border-radius: 0 8px 8px 0;
+    color: var(--color-text-light);
+    font-size: 14px;
+    line-height: 1.9;
+  }
+  .product-body :global(strong) {
+    color: var(--color-primary);
+  }
+  /* MDX 里的参数表格 */
+  .product-body :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 8px 0 26px;
+    font-size: 14px;
+  }
+  .product-body :global(th),
+  .product-body :global(td) {
+    border: 1px solid var(--color-border);
+    padding: 10px 14px;
+    text-align: left;
+    line-height: 1.7;
+  }
+  .product-body :global(th) {
+    background: var(--color-bg-gray);
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+  .product-body :global(td) {
+    color: var(--color-text-light);
+  }
+
+  .back-wrap {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+</style>

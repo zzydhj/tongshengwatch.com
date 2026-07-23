@@ -1,0 +1,25 @@
+---
+// news/[...slug].astro - 新闻详情动态路由
+// ============================================================
+// 自动读取 src/content/news/ 下的所有 .mdx 文件，
+// 每个文件生成一个详情页：/news/文件名/
+// 新增新闻只需在 src/content/news/ 里加 .mdx 文件，无需改这里。
+// ============================================================
+import { getCollection, render } from "astro:content";
+import NewsDetailLayout from "../../layouts/NewsDetailLayout.astro";
+
+export async function getStaticPaths() {
+  const entries = await getCollection("news");
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<NewsDetailLayout data={entry.data}>
+  <Content />
+</NewsDetailLayout>

@@ -1,0 +1,166 @@
+---
+// NewsDetailLayout.astro - 新闻详情页布局（MDX 文档套用的框架）
+// 由动态路由 src/pages/news/[...slug].astro 调用，MDX 正文渲染在 <slot /> 里
+import BaseLayout from "./BaseLayout.astro";
+
+interface Props {
+  data: {
+    title: string;
+    date: string;
+    category: string;
+    summary?: string;
+  };
+}
+
+const { data } = Astro.props;
+---
+
+<BaseLayout lang="zh" title={data.title} description={data.summary ?? `${data.title} - 同盛钟表新闻中心。`}>
+  <!-- ====== 文章头部 ====== -->
+  <section class="article-header">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="/">首页</a>
+        <span class="sep">&gt;</span>
+        <a href="/news/">新闻中心</a>
+        <span class="sep">&gt;</span>
+        <span class="current">{data.category}</span>
+      </nav>
+      <h1 class="article-title">{data.title}</h1>
+      <div class="article-meta">
+        <span class="meta-category">{data.category}</span>
+        <time class="meta-date">发布时间：{data.date}</time>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 文章正文（MDX 内容渲染在这里） ====== -->
+  <section class="section">
+    <div class="container">
+      <div class="article-body">
+        <slot />
+
+        <div class="back-wrap">
+          <a href="/news/" class="btn btn-outline">&larr; 返回新闻中心</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* ===== 新闻详情页布局样式 ===== */
+
+  /* 文章头部 */
+  .article-header {
+    background: var(--color-bg-gray);
+    padding: 48px 0 40px;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .breadcrumb {
+    font-size: 13px;
+    color: var(--color-text-light);
+    margin-bottom: 20px;
+  }
+  .breadcrumb a {
+    color: var(--color-text-light);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .breadcrumb a:hover {
+    color: var(--color-accent);
+  }
+  .breadcrumb .sep {
+    margin: 0 8px;
+    color: #bbb;
+  }
+  .breadcrumb .current {
+    color: var(--color-accent);
+  }
+  .article-title {
+    font-size: 30px;
+    color: var(--color-primary);
+    line-height: 1.5;
+    letter-spacing: 1px;
+    margin-bottom: 18px;
+  }
+  @media (max-width: 767px) {
+    .article-title {
+      font-size: 22px;
+    }
+  }
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    font-size: 13px;
+    color: var(--color-text-light);
+  }
+  .meta-category {
+    background: var(--color-accent);
+    color: #fff;
+    padding: 3px 14px;
+    border-radius: 999px;
+    font-size: 12px;
+  }
+
+  /* 文章正文（MDX 渲染出的元素） */
+  .article-body {
+    max-width: 820px;
+    margin: 0 auto;
+  }
+  .article-body :global(p) {
+    font-size: 15px;
+    line-height: 2.1;
+    color: var(--color-text);
+    margin-bottom: 22px;
+    text-indent: 2em;
+  }
+  .article-body :global(h2) {
+    font-size: 21px;
+    color: var(--color-primary);
+    margin: 36px 0 18px;
+    padding-left: 12px;
+    border-left: 4px solid var(--color-accent);
+    line-height: 1.4;
+  }
+  .article-body :global(h3) {
+    font-size: 17px;
+    color: var(--color-primary);
+    margin: 28px 0 14px;
+  }
+  .article-body :global(img) {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 8px 0 26px;
+  }
+  .article-body :global(ul),
+  .article-body :global(ol) {
+    margin: 0 0 22px;
+    padding-left: 2.5em;
+    font-size: 15px;
+    line-height: 2;
+    color: var(--color-text);
+  }
+  .article-body :global(blockquote) {
+    margin: 0 0 22px;
+    padding: 14px 20px;
+    background: var(--color-bg-gray);
+    border-left: 4px solid var(--color-accent);
+    border-radius: 0 8px 8px 0;
+    color: var(--color-text-light);
+    font-size: 14px;
+    line-height: 1.9;
+  }
+  .article-body :global(strong) {
+    color: var(--color-primary);
+  }
+
+  .back-wrap {
+    text-align: center;
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--color-border);
+  }
+</style>

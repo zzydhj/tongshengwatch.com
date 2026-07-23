@@ -1,0 +1,274 @@
+---
+// contact.astro - 联系我们页（中文版）
+// 联系信息统一从 config.ts 的 contactInfo 读取，改那里即可全站生效
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { contactInfo } from "../config";
+---
+
+<BaseLayout lang="zh" title="联系我们" description="联系东莞市同盛钟表有限公司：地址、部门电话、业务邮箱与在线留言。">
+  <!-- 页面横幅 -->
+  <section class="page-banner">
+    <h1>联系我们</h1>
+    <p>期待与您的合作，欢迎来厂参观指导</p>
+  </section>
+
+  <!-- ====== 联系方式卡片 ====== -->
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon">📍</div>
+          <h3 class="contact-label">公司地址</h3>
+          <p class="contact-value">{contactInfo.address}</p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">📞</div>
+          <h3 class="contact-label">部门电话</h3>
+          <p class="contact-value">
+            {
+              contactInfo.contacts.map((c) => (
+                <>
+                  {c.name}：<a href={`tel:${c.tel}`}>{c.tel}</a>
+                  <br />
+                </>
+              ))
+            }
+          </p>
+        </div>
+        <div class="contact-card">
+          <div class="contact-icon">✉️</div>
+          <h3 class="contact-label">业务邮箱</h3>
+          <p class="contact-value">
+            {
+              contactInfo.emails.map((e) => (
+                <>
+                  {e.label}：<a href={`mailto:${e.email}`}>{e.email}</a>
+                  <br />
+                </>
+              ))
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 在线留言 + 地图 ====== -->
+  <section class="section bg-gray">
+    <div class="container">
+      <div class="form-map-grid">
+        <!-- 在线留言表单（纯前端，提交逻辑需自行接入后端） -->
+        <div class="form-card">
+          <h2 class="form-title">在线留言</h2>
+          <p class="form-desc">留下您的需求，我们会尽快与您取得联系。</p>
+          <form class="contact-form" id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">您的姓名 *</label>
+                <input type="text" id="name" name="name" required placeholder="请输入姓名" />
+              </div>
+              <div class="form-group">
+                <label for="phone">联系电话 *</label>
+                <input type="tel" id="phone" name="phone" required placeholder="请输入电话" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">电子邮箱</label>
+              <input type="email" id="email" name="email" placeholder="请输入邮箱（选填）" />
+            </div>
+            <div class="form-group">
+              <label for="message">留言内容 *</label>
+              <textarea id="message" name="message" rows="5" required placeholder="请描述您的需求，如产品定制、合作咨询等"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">提交留言</button>
+          </form>
+        </div>
+
+        <!-- 地图占位（可替换为高德/百度地图 iframe 嵌入） -->
+        <div class="map-card">
+          <h2 class="form-title">公司位置</h2>
+          <div class="map-placeholder">
+            {/* 替换成地图嵌入代码，例如高德地图 iframe */}
+            <img src="https://placehold.co/800x600/e9ecef/6c757d?text=公司位置地图" alt="公司位置地图" class="map-img" />
+            <a href={contactInfo.mapUrl} target="_blank" rel="noopener noreferrer" class="map-link">
+              在高德地图中查看 →
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // 表单提交占位逻辑：接入后端后替换此处
+  const form = document.getElementById("contactForm") as HTMLFormElement | null;
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+    // TODO: 在这里接入你的后端接口 / 邮件服务
+    alert("留言已提交，我们会尽快与您联系！（示例提示，请接入真实后端）");
+    form.reset();
+  });
+</script>
+
+<style>
+  /* ===== 联系我们页专属样式 ===== */
+
+  /* 页面横幅 */
+  .page-banner {
+    background: linear-gradient(135deg, #1a1d23, #3a4250);
+    color: #fff;
+    text-align: center;
+    padding: 80px 24px 64px;
+  }
+  .page-banner h1 {
+    font-size: 34px;
+    letter-spacing: 4px;
+    margin-bottom: 14px;
+  }
+  .page-banner p {
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.75);
+    letter-spacing: 2px;
+  }
+
+  /* 联系方式卡片 */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  @media (min-width: 768px) {
+    .contact-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .contact-card {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 36px 28px;
+    text-align: center;
+    transition: box-shadow 0.25s, transform 0.25s;
+  }
+  .contact-card:hover {
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+  }
+  .contact-icon {
+    font-size: 34px;
+    margin-bottom: 16px;
+  }
+  .contact-label {
+    font-size: 17px;
+    color: var(--color-primary);
+    margin-bottom: 12px;
+  }
+  .contact-value {
+    font-size: 14px;
+    color: var(--color-text-light);
+    line-height: 2;
+    word-break: break-all;
+  }
+  .contact-value a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  /* 表单 + 地图 */
+  .form-map-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  @media (min-width: 900px) {
+    .form-map-grid {
+      grid-template-columns: 1.2fr 1fr;
+    }
+  }
+  .form-card,
+  .map-card {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    padding: 36px 32px;
+  }
+  .form-title {
+    font-size: 22px;
+    color: var(--color-primary);
+    margin-bottom: 8px;
+  }
+  .form-desc {
+    font-size: 14px;
+    color: var(--color-text-light);
+    margin-bottom: 24px;
+  }
+
+  /* 表单 */
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+  @media (min-width: 600px) {
+    .form-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .form-group {
+    margin-bottom: 18px;
+  }
+  .form-group label {
+    display: block;
+    font-size: 14px;
+    color: var(--color-text);
+    margin-bottom: 8px;
+  }
+  .form-group input,
+  .form-group textarea {
+    width: 100%;
+    padding: 11px 14px;
+    font-size: 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+    outline: none;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    background: #fff;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus {
+    border-color: var(--color-accent);
+  }
+  .form-group textarea {
+    resize: vertical;
+  }
+  .btn-block {
+    width: 100%;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+  }
+
+  /* 地图占位 */
+  .map-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .map-img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  .map-link {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-size: 14px;
+  }
+  .map-link:hover {
+    text-decoration: underline;
+  }
+</style>
