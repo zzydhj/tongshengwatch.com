@@ -22,8 +22,8 @@ export const siteConfig = {
     copyright: "Copyright: Dongguan Tongsheng Watch Co., Ltd.",
   },
   // 以下信息两种语言共用
-  // LOGO 网络占位图。后续替换：把真实 logo 放到 public/images/logo.png，再改回 "/images/logo.png"
-  logo: "https://placehold.co/120x44/1a1d23/ffffff?text=同盛钟表",
+  // LOGO 图片（线上 logo.webp）
+  logo: "https://tongshengwatch.zzydhj.com/logo.webp",
   icp: "粤ICP备XXXXXXXX号-1", // TODO: 替换为真实备案号
   icpUrl: "https://beian.miit.gov.cn/",
   gongan: "粤公网安备XXXXXXXXXXXXX号", // TODO: 替换为真实公安备案号

@@ -41,6 +41,13 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* 移动端预留底部快捷栏高度，避免固定导航遮住页脚联系方式等内容 */
+@media (max-width: 899px) {
+  body {
+    padding-bottom: calc(60px + env(safe-area-inset-bottom));
+  }
+}
+
 img {
   max-width: 100%;
   height: auto;
