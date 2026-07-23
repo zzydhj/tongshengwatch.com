@@ -84,16 +84,26 @@ import { contactInfo } from "../config";
           </form>
         </div>
 
-        <!-- 地图占位（可替换为高德/百度地图 iframe 嵌入） -->
+        <!-- 公司位置地图 -->
         <div class="map-card">
           <h2 class="form-title">公司位置</h2>
-          <div class="map-placeholder">
-            {/* 替换成地图嵌入代码，例如高德地图 iframe */}
-            <img src="https://placehold.co/800x600/e9ecef/6c757d?text=公司位置地图" alt="公司位置地图" class="map-img" />
-            <a href={contactInfo.mapUrl} target="_blank" rel="noopener noreferrer" class="map-link">
-              在高德地图中查看 →
-            </a>
-          </div>
+          {
+            contactInfo.amapKey ? (
+              <div class="map-wrapper">
+                <div id="amapContainer" class="amap-container" />
+                <a href={contactInfo.mapUrl} target="_blank" rel="noopener noreferrer" class="map-link map-link-below">
+                  在高德地图中查看 →
+                </a>
+              </div>
+            ) : (
+              <div class="map-placeholder">
+                <img src="https://placehold.co/800x600/e9ecef/6c757d?text=公司位置地图" alt="公司位置地图" class="map-img" />
+                <a href={contactInfo.mapUrl} target="_blank" rel="noopener noreferrer" class="map-link">
+                  在高德地图中查看 →
+                </a>
+              </div>
+            )
+          }
         </div>
       </div>
     </div>
@@ -109,6 +119,33 @@ import { contactInfo } from "../config";
     alert("留言已提交，我们会尽快与您联系！（示例提示，请接入真实后端）");
     form.reset();
   });
+</script>
+
+<!-- 高德地图初始化：仅在 config.ts 配置了 amapKey 后生效 -->
+<script
+  define:vars={{
+    amapKey: contactInfo.amapKey,
+    securityJsCode: contactInfo.amapSecurityJsCode,
+    address: contactInfo.address,
+  }}
+>
+  if (amapKey && document.getElementById("amapContainer")) {
+    window._AMapSecurityConfig = { securityJsCode };
+    const amapScript = document.createElement("script");
+    amapScript.src = `https://webapi.amap.com/maps?v=2.0&key=${amapKey}&plugin=AMap.Geocoder`;
+    amapScript.onload = () => {
+      const map = new AMap.Map("amapContainer", { zoom: 16, viewMode: "2D" });
+      const geocoder = new AMap.Geocoder();
+      geocoder.getLocation(address, (status, result) => {
+        if (status === "complete" && result.geocodes && result.geocodes.length > 0) {
+          const position = result.geocodes[0].location;
+          map.setCenter(position);
+          map.add(new AMap.Marker({ position, title: "东莞市同盛钟表有限公司" }));
+        }
+      });
+    };
+    document.head.appendChild(amapScript);
+  }
 </script>
 
 <style>
@@ -256,6 +293,22 @@ import { contactInfo } from "../config";
     flex-direction: column;
     align-items: center;
     gap: 16px;
+  }
+  /* 高德地图容器 */
+  .map-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .amap-container {
+    width: 100%;
+    height: 420px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #e9ecef;
+  }
+  .map-link-below {
+    align-self: center;
   }
   .map-img {
     width: 100%;

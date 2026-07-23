@@ -50,6 +50,10 @@ export const contactInfo = {
   ],
   mapUrl:
     "http://m.amap.com/search/view/keywords=广东省东莞市东城街道榴花工业路6号1栋201室",
+  // 高德地图 JS API Key（在高德开放平台 lbs.amap.com 免费申请，Web端(JS API)类型）
+  // 填上 key 和 securityJsCode 后，联系页会自动显示交互式地图；留空则只显示跳转链接
+  amapKey: "f6ac9fc5eabc9f5d8d9215c26738cecc",
+  amapSecurityJsCode: "e905c2d7748ed604a08691ea5a759a5e",
 };
 
 // ---------- 导航结构（双语） ----------
