@@ -62,31 +62,32 @@ const certificates = [
   "多项自主研发新款（每年不少于100款）",
 ];
 
-// 合作客户数据（来自公司介绍资料，后续可换成 logo 图片）
+// 合作客户数据（品牌 logo 图片存放于线上 customer-logo 目录）
+const LOGO_BASE = "https://tongshengwatch.zzydhj.com/customer-logo";
 const clients = [
-  "VICTORINOX（瑞士军刀）",
-  "VERSACE（范思哲）",
-  "TISSOT（天梭）",
-  "PHILIPP PLEIN",
-  "FERRAGAMO（菲拉格慕）",
-  "TITAN（泰坦）",
-  "FESTINA",
-  "TIMEX（天美时）",
-  "BOSS",
-  "MICHELE（米雪儿）",
-  "BULOVA / CRAVELLE（宝路华）",
-  "FOSSIL（福士）",
-  "CITIZEN（西铁城）",
-  "GUESS",
-  "COACH（蔻驰）",
-  "TOUS",
-  "MICHAEL KORS",
-  "LOLA ROSE（罗拉）",
-  "DKNY",
-  "Kenneth Cole",
-  "TOMMY HILFIGER",
-  "LACOSTE（法国鳄鱼）",
-  "DIESEL（迪赛）",
+  { name: "VICTORINOX（瑞士军刀）", logo: "VICTORINOX.png" },
+  { name: "VERSACE（范思哲）", logo: "VERSACE.png" },
+  { name: "TISSOT（天梭）", logo: "TISSOT.png" },
+  { name: "PHILIPP PLEIN", logo: "PHILIPP_PLEIN.png" },
+  { name: "FERRAGAMO（菲拉格慕）", logo: "FERRAGAMO.png" },
+  { name: "TITAN（泰坦）", logo: "TITAN.png" },
+  { name: "FESTINA", logo: "FESTINA.png" },
+  { name: "TIMEX（天美时）", logo: "TIMEX.png" },
+  { name: "BOSS", logo: "BOSS.png" },
+  { name: "MICHELE（米雪儿）", logo: "MICHELE.png" },
+  { name: "BULOVA / CRAVELLE（宝路华）", logo: "BULOVA.png" },
+  { name: "FOSSIL（福士）", logo: "FOSSIL.png" },
+  { name: "CITIZEN（西铁城）", logo: "CITIZEN.png" },
+  { name: "GUESS", logo: "GUESS.png" },
+  { name: "COACH（蔻驰）", logo: "COACH.png" },
+  { name: "TOUS", logo: "TOUS.png" },
+  { name: "MICHAEL KORS", logo: "MICHAEL_KORS.png" },
+  { name: "LOLA ROSE（罗拉）", logo: "LOLA_ROSE.png" },
+  { name: "DKNY", logo: "DKNY.png" },
+  { name: "Kenneth Cole", logo: "KENNETH_COLE.png" },
+  { name: "TOMMY HILFIGER", logo: "TOMMY_HILFIGER.png" },
+  { name: "LACOSTE（法国鳄鱼）", logo: "LACOSTE.png" },
+  { name: "DIESEL（迪赛）", logo: "DIESEL.png" },
 ];
 ---
 
@@ -228,12 +229,17 @@ const clients = [
       <p class="section-subtitle">
         作为世界中高端手表品牌的长期供应商，同盛·创盛钟表的客户涵盖以下国际知名品牌。
       </p>
-      <div class="cert-grid">
+      <div class="cert-grid client-grid">
         {
           clients.map((client) => (
-            <div class="cert-item">
-              <div class="cert-icon">🏢</div>
-              <span>{client}</span>
+            <div class="cert-item client-item">
+              <img
+                class="client-logo"
+                src={`${LOGO_BASE}/${client.logo}`}
+                alt={client.name}
+                loading="lazy"
+              />
+              <span class="client-name">{client.name}</span>
             </div>
           ))
         }
@@ -414,5 +420,29 @@ const clients = [
   .cert-icon {
     font-size: 24px;
     flex-shrink: 0;
+  }
+
+  /* 合作客户 logo 墙 */
+  .client-item {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: 26px 16px;
+  }
+  .client-logo {
+    height: 44px;
+    max-width: 100%;
+    width: auto;
+    object-fit: contain;
+  }
+  .client-name {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--color-text-light);
+  }
+  @media (min-width: 1200px) {
+    .client-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 </style>
