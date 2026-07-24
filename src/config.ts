@@ -54,6 +54,8 @@ export const contactInfo = {
   // 填上 key 和 securityJsCode 后，联系页会自动显示交互式地图；留空则只显示跳转链接
   amapKey: "f6ac9fc5eabc9f5d8d9215c26738cecc",
   amapSecurityJsCode: "e905c2d7748ed604a08691ea5a759a5e",
+  // Web3Forms 表单 Access Key（公开密钥，留言提交到 web3forms 后转发到注册邮箱）
+  web3formsKey: "24b53952-751a-40d7-a180-79240de63295",
 };
 
 // ---------- 导航结构（双语） ----------

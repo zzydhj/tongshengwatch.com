@@ -73,8 +73,7 @@ const promises = [
               <a class="product-more" href={`/products/${p.id}/`}>查看详情 →</a>
             </div>
             <div class="product-image">
-              {/* 替换成产品图: <img src="/images/xxx.jpg" alt={p.data.title} /> */}
-              <img src={`https://placehold.co/600x400/e9ecef/6c757d?text=${p.data.title}`} alt={p.data.title} class="product-img" />
+              <img src={p.data.image} alt={p.data.title} class="product-img" />
             </div>
           </div>
         </div>

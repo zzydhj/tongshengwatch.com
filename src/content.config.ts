@@ -26,6 +26,7 @@ const products = defineCollection({
     title: z.string(), // 产品名称，如 "实心带"
     feature: z.string(), // 特点标签，如 "抗腐蚀 · 防锈耐汗"
     desc: z.string(), // 简介（显示在产品汇总页）
+    image: z.string(), // 产品主图 URL（列表页与详情页共用）
     materials: z.string(), // 材质
     capacity: z.string(), // 产能
     order: z.number(), // 排序（数字越小越靠前）

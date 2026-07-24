@@ -13,34 +13,34 @@ const stats = [
   { value: "4万套", label: "表壳月产能" },
 ];
 
-// 五大主营产品（img 为网络占位图，后续替换为真实产品图）
+// 五大主营产品（img 为线上真实产品图）
 const products = [
   {
-    img: "https://placehold.co/600x400/e9ecef/6c757d?text=实心带",
+    img: "https://tongshengwatch.zzydhj.com/products/solid-bracelet.jpg",
     title: "实心带",
     desc: "含钼元素，耐人体汗液、海水、化妆品腐蚀，日常佩戴不易氧化发黑，适合运动、海边等场景。",
     href: "/products/#solid",
   },
   {
-    img: "https://placehold.co/600x400/e9ecef/6c757d?text=包边带",
+    img: "https://tongshengwatch.zzydhj.com/products/bezel-ring.jpg",
     title: "包边带",
     desc: "质感高级，可做拉丝、镜面、喷砂、PVD电镀（金、枪黑、间金、玫瑰金），轻奢商务全覆盖。",
     href: "/products/#edge",
   },
   {
-    img: "https://placehold.co/600x400/e9ecef/6c757d?text=表壳",
+    img: "https://tongshengwatch.zzydhj.com/products/watch-case.jpg",
     title: "表壳",
     desc: "支持6063铝料、陶瓷、304/316L不锈钢、钛2、钛5、钽等材质，兼顾品牌大单与中小批量订单。",
     href: "/products/#case",
   },
   {
-    img: "https://placehold.co/600x400/e9ecef/6c757d?text=网带",
+    img: "https://tongshengwatch.zzydhj.com/products/mesh-bracelet.jpg",
     title: "网带",
     desc: "快速响应+稳定交期，接单24小时内出初步报价与方案，PMC全程跟进生产进度。",
     href: "/products/#mesh",
   },
   {
-    img: "https://placehold.co/600x400/e9ecef/6c757d?text=弹弓带",
+    img: "https://tongshengwatch.zzydhj.com/products/oyster-bracelet.jpg",
     title: "弹弓带",
     desc: "全链路一站式定制服务，从图片到成品，可根据客户样板起模做货，海量产品库可供选择。",
     href: "/products/#spring",
@@ -49,7 +49,7 @@ const products = [
 ---
 
 <BaseLayout lang="zh">
-  <!-- ====== 横幅轮播区（替换成自己的 banner 图） ====== -->
+  <!-- ====== 横幅区 ====== -->
   <section class="hero">
     <div class="hero-content">
       <h1 class="hero-title">
@@ -93,7 +93,7 @@ const products = [
         </div>
         <div class="intro-image">
           <!-- 替换成你的图片: <img src="/images/xxx.jpg" alt="企业简介" /> -->
-          <img src="https://placehold.co/800x600/e9ecef/6c757d?text=企业简介" alt="企业简介" class="intro-img" />
+          <img src="https://tongshengwatch.zzydhj.com/products/fgsmndfg.webp" alt="企业简介" class="intro-img" />
         </div>
       </div>
     </div>
@@ -133,10 +133,10 @@ const products = [
     align-items: center;
     justify-content: center;
     min-height: 520px;
-    /* 替换成你的 banner 图: 把下方占位图 url 换成 /images/banner.jpg */
+    /* 横幅背景图（线上 banner.jpg）+ 深色遮罩保证文字可读 */
     background-image:
       linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
-      url("https://placehold.co/1920x600/2c3e50/ffffff?text=首页横幅");
+      url("https://tongshengwatch.zzydhj.com/banner.jpg");
     background-size: cover;
     background-position: center;
     text-align: center;

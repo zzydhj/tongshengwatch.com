@@ -62,6 +62,12 @@ import { contactInfo } from "../config";
           <h2 class="form-title">在线留言</h2>
           <p class="form-desc">留下您的需求，我们会尽快与您取得联系。</p>
           <form class="contact-form" id="contactForm">
+            <!-- Web3Forms 必需字段：access_key -->
+            <input type="hidden" name="access_key" value={contactInfo.web3formsKey} />
+            <!-- 邮件主题 -->
+            <input type="hidden" name="subject" value="同盛钟表官网 - 新的在线留言" />
+            <!-- 防垃圾蜜罐字段（正常用户不会填写） -->
+            <input type="checkbox" name="botcheck" style="display: none" />
             <div class="form-row">
               <div class="form-group">
                 <label for="name">您的姓名 *</label>
@@ -81,6 +87,7 @@ import { contactInfo } from "../config";
               <textarea id="message" name="message" rows="5" required placeholder="请描述您的需求，如产品定制、合作咨询等"></textarea>
             </div>
             <button type="submit" class="btn btn-primary btn-block">提交留言</button>
+            <p id="formResult" class="form-result" aria-live="polite"></p>
           </form>
         </div>
 
@@ -111,13 +118,49 @@ import { contactInfo } from "../config";
 </BaseLayout>
 
 <script>
-  // 表单提交占位逻辑：接入后端后替换此处
+  // 表单提交：接入 Web3Forms（留言转发到注册邮箱）
   const form = document.getElementById("contactForm") as HTMLFormElement | null;
-  form?.addEventListener("submit", (e) => {
+  const result = document.getElementById("formResult");
+  const submitBtn = form?.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+
+  form?.addEventListener("submit", async (e) => {
     e.preventDefault();
-    // TODO: 在这里接入你的后端接口 / 邮件服务
-    alert("留言已提交，我们会尽快与您联系！（示例提示，请接入真实后端）");
-    form.reset();
+    if (!form || !result || !submitBtn) return;
+
+    // 蜜罐字段被填写 → 判定为垃圾提交，静默丢弃
+    if ((form.elements.namedItem("botcheck") as HTMLInputElement | null)?.checked) {
+      form.reset();
+      return;
+    }
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    submitBtn.disabled = true;
+    submitBtn.textContent = "提交中…";
+    result.textContent = "";
+    result.className = "form-result";
+
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json();
+      if (json.success) {
+        result.textContent = "✓ 留言已提交，我们会尽快与您联系！";
+        result.classList.add("success");
+        form.reset();
+      } else {
+        result.textContent = "✗ 提交失败：" + (json.message || "请稍后重试");
+        result.classList.add("error");
+      }
+    } catch {
+      result.textContent = "✗ 网络异常，请稍后重试";
+      result.classList.add("error");
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = "提交留言";
+    }
   });
 </script>
 
@@ -285,6 +328,20 @@ import { contactInfo } from "../config";
     border: none;
     cursor: pointer;
     font-size: 15px;
+  }
+
+  /* 表单提交结果提示 */
+  .form-result {
+    margin-top: 12px;
+    font-size: 14px;
+    text-align: center;
+    min-height: 20px;
+  }
+  .form-result.success {
+    color: #2e7d32;
+  }
+  .form-result.error {
+    color: #c62828;
   }
 
   /* 地图占位 */
