@@ -2,6 +2,7 @@
 // NewsDetailLayout.astro - 新闻详情页布局（MDX 文档套用的框架）
 // 由动态路由 src/pages/news/[...slug].astro 调用，MDX 正文渲染在 <slot /> 里
 import BaseLayout from "./BaseLayout.astro";
+import { localizeHref, type Lang } from "../config";
 
 interface Props {
   data: {
@@ -10,26 +11,36 @@ interface Props {
     category: string;
     summary?: string;
   };
+  lang?: Lang;
 }
 
 const { data } = Astro.props;
+const lang: Lang = Astro.props.lang ?? "zh";
+const isEn = lang === "en";
 ---
 
-<BaseLayout lang="zh" title={data.title} description={data.summary ?? `${data.title} - 同盛钟表新闻中心。`}>
+<BaseLayout
+  lang={lang}
+  title={data.title}
+  description={data.summary ??
+    `${data.title} - ${isEn ? "Tongsheng Watch News" : "同盛钟表新闻中心"}。`}
+>
   <!-- ====== 文章头部 ====== -->
   <section class="article-header">
     <div class="container">
       <nav class="breadcrumb">
-        <a href="/">首页</a>
+        <a href={localizeHref("/", lang)}>{isEn ? "Home" : "首页"}</a>
         <span class="sep">&gt;</span>
-        <a href="/news/">新闻中心</a>
+        <a href={localizeHref("/news/", lang)}>{isEn ? "News" : "新闻中心"}</a>
         <span class="sep">&gt;</span>
         <span class="current">{data.category}</span>
       </nav>
       <h1 class="article-title">{data.title}</h1>
       <div class="article-meta">
         <span class="meta-category">{data.category}</span>
-        <time class="meta-date">发布时间：{data.date}</time>
+        <time class="meta-date"
+          >{isEn ? "Published" : "发布时间"}：{data.date}</time
+        >
       </div>
     </div>
   </section>
@@ -41,7 +52,9 @@ const { data } = Astro.props;
         <slot />
 
         <div class="back-wrap">
-          <a href="/news/" class="btn btn-outline">&larr; 返回新闻中心</a>
+          <a href={localizeHref("/news/", lang)} class="btn btn-outline"
+            >&larr; {isEn ? "Back to News" : "返回新闻中心"}</a
+          >
         </div>
       </div>
     </div>

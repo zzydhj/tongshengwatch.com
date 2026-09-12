@@ -163,11 +163,11 @@ export const mobileActions = {
 };
 
 // ---------- 工具函数 ----------
-// 根据语言给内部链接加前缀：zh 原样返回，en 加 /en 前缀
+// 根据语言给内部链接加前缀：en 原样返回，zh 加 /zh 前缀
 // 外部链接（http/tel/mailto）不处理
 export function localizeHref(href: string, lang: Lang): string {
   if (/^(https?:|tel:|mailto:)/.test(href)) return href;
-  if (lang === "zh") return href;
-  // "/" -> "/en/"，"/about/" -> "/en/about/"
-  return href === "/" ? "/en/" : `/en${href}`;
+  if (lang === "en") return href;
+  // "/" -> "/zh/"，"/about/" -> "/zh/about/"
+  return href === "/" ? "/zh/" : `/zh${href}`;
 }

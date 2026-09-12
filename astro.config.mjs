@@ -6,10 +6,10 @@ import mdx from "@astrojs/mdx";
 // https://astro.build/config
 export default defineConfig({
   i18n: {
-    defaultLocale: "zh", // 默认中文
-    locales: ["zh", "en"],
+    defaultLocale: "en", // 默认英文
+    locales: ["en", "zh"],
     routing: {
-      // 中文放根路径（/about/），英文放 /en/ 前缀（/en/about/）
+      // 英文放根路径（/about/），中文放 /zh/ 前缀（/zh/about/）
       prefixDefaultLocale: false,
     },
   },

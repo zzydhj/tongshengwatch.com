@@ -1,384 +1,462 @@
 ---
-// contact.astro - 联系我们页（中文版）
-// 联系信息统一从 config.ts 的 contactInfo 读取，改那里即可全站生效
+// contact.astro - Contact Us (English)
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { contactInfo } from "../config";
 ---
 
-<BaseLayout lang="zh" title="联系我们" description="联系东莞市同盛钟表有限公司：地址、部门电话、业务邮箱与在线留言。">
-  <!-- 页面横幅 -->
-  <section class="page-banner">
-    <h1>联系我们</h1>
-    <p>期待与您的合作，欢迎来厂参观指导</p>
-  </section>
+<BaseLayout
+    lang="en"
+    title="Contact"
+    description="Contact Dongguan Tongsheng Watch Co., Ltd. — address, department phone numbers, business emails and online inquiry form."
+>
+    <section class="page-banner">
+        <h1>Contact Us</h1>
+        <p>
+            We look forward to cooperating with you. Factory visits are welcome.
+        </p>
+    </section>
 
-  <!-- ====== 联系方式卡片 ====== -->
-  <section class="section">
-    <div class="container">
-      <div class="contact-grid">
-        <div class="contact-card">
-          <div class="contact-icon">📍</div>
-          <h3 class="contact-label">公司地址</h3>
-          <p class="contact-value">{contactInfo.address}</p>
+    <!-- ====== Contact Cards ====== -->
+    <section class="section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">📍</div>
+                    <h3 class="contact-label">Address</h3>
+                    <p class="contact-value">{contactInfo.addressEn}</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <h3 class="contact-label">Department Phones</h3>
+                    <p class="contact-value">
+                        {
+                            contactInfo.contacts.map((c) => (
+                                <>
+                                    {c.nameEn}:{" "}
+                                    <a href={`tel:${c.tel}`}>{c.tel}</a>
+                                    <br />
+                                </>
+                            ))
+                        }
+                    </p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">✉️</div>
+                    <h3 class="contact-label">Business Emails</h3>
+                    <p class="contact-value">
+                        {
+                            contactInfo.emails.map((e) => (
+                                <>
+                                    {e.labelEn}:{" "}
+                                    <a href={`mailto:${e.email}`}>{e.email}</a>
+                                    <br />
+                                </>
+                            ))
+                        }
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="contact-card">
-          <div class="contact-icon">📞</div>
-          <h3 class="contact-label">部门电话</h3>
-          <p class="contact-value">
-            {
-              contactInfo.contacts.map((c) => (
-                <>
-                  {c.name}：<a href={`tel:${c.tel}`}>{c.tel}</a>
-                  <br />
-                </>
-              ))
-            }
-          </p>
-        </div>
-        <div class="contact-card">
-          <div class="contact-icon">✉️</div>
-          <h3 class="contact-label">业务邮箱</h3>
-          <p class="contact-value">
-            {
-              contactInfo.emails.map((e) => (
-                <>
-                  {e.label}：<a href={`mailto:${e.email}`}>{e.email}</a>
-                  <br />
-                </>
-              ))
-            }
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ====== 在线留言 + 地图 ====== -->
-  <section class="section bg-gray">
-    <div class="container">
-      <div class="form-map-grid">
-        <!-- 在线留言表单（纯前端，提交逻辑需自行接入后端） -->
-        <div class="form-card">
-          <h2 class="form-title">在线留言</h2>
-          <p class="form-desc">留下您的需求，我们会尽快与您取得联系。</p>
-          <form class="contact-form" id="contactForm">
-            <!-- Web3Forms 必需字段：access_key -->
-            <input type="hidden" name="access_key" value={contactInfo.web3formsKey} />
-            <!-- 邮件主题 -->
-            <input type="hidden" name="subject" value="同盛钟表官网 - 新的在线留言" />
-            <!-- 防垃圾蜜罐字段（正常用户不会填写） -->
-            <input type="checkbox" name="botcheck" style="display: none" />
-            <div class="form-row">
-              <div class="form-group">
-                <label for="name">您的姓名 *</label>
-                <input type="text" id="name" name="name" required placeholder="请输入姓名" />
-              </div>
-              <div class="form-group">
-                <label for="phone">联系电话 *</label>
-                <input type="tel" id="phone" name="phone" required placeholder="请输入电话" />
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="email">电子邮箱</label>
-              <input type="email" id="email" name="email" placeholder="请输入邮箱（选填）" />
-            </div>
-            <div class="form-group">
-              <label for="message">留言内容 *</label>
-              <textarea id="message" name="message" rows="5" required placeholder="请描述您的需求，如产品定制、合作咨询等"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">提交留言</button>
-            <p id="formResult" class="form-result" aria-live="polite"></p>
-          </form>
-        </div>
+    <!-- ====== Inquiry Form + Map ====== -->
+    <section class="section bg-gray">
+        <div class="container">
+            <div class="form-map-grid">
+                <div class="form-card">
+                    <h2 class="form-title">Send an Inquiry</h2>
+                    <p class="form-desc">
+                        Leave your requirements and we'll get back to you
+                        promptly.
+                    </p>
+                    <form class="contact-form" id="contactForm">
+                        <input
+                            type="hidden"
+                            name="access_key"
+                            value={contactInfo.web3formsKey}
+                        />
+                        <input
+                            type="hidden"
+                            name="subject"
+                            value="Tongsheng Watch - New Inquiry"
+                        />
+                        <input
+                            type="checkbox"
+                            name="botcheck"
+                            style="display: none"
+                        />
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Your Name *</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    required
+                                    placeholder="Enter your name"
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    name="phone"
+                                    required
+                                    placeholder="Enter your phone"
+                                />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email (optional)"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea
+                                id="message"
+                                name="message"
+                                rows="5"
+                                required
+                                placeholder="Describe your needs, e.g. product customization, partnership inquiry"
+                            ></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block"
+                            >Submit Inquiry</button
+                        >
+                        <p
+                            id="formResult"
+                            class="form-result"
+                            aria-live="polite"
+                        >
+                        </p>
+                    </form>
+                </div>
 
-        <!-- 公司位置地图 -->
-        <div class="map-card">
-          <h2 class="form-title">公司位置</h2>
-          {
-            contactInfo.amapKey ? (
-              <div class="map-wrapper">
-                <div id="amapContainer" class="amap-container" />
-                <a href={contactInfo.mapUrl} target="_blank" rel="noopener noreferrer" class="map-link map-link-below">
-                  在高德地图中查看 →
-                </a>
-              </div>
-            ) : (
-              <div class="map-placeholder">
-                <img src="https://placehold.co/800x600/e9ecef/6c757d?text=公司位置地图" alt="公司位置地图" class="map-img" />
-                <a href={contactInfo.mapUrl} target="_blank" rel="noopener noreferrer" class="map-link">
-                  在高德地图中查看 →
-                </a>
-              </div>
-            )
-          }
+                <div class="map-card">
+                    <h2 class="form-title">Our Location</h2>
+                    {
+                        contactInfo.amapKey ? (
+                            <div class="map-wrapper">
+                                <div
+                                    id="amapContainer"
+                                    class="amap-container"
+                                />
+                                <a
+                                    href={contactInfo.mapUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="map-link map-link-below"
+                                >
+                                    View on Amap →
+                                </a>
+                            </div>
+                        ) : (
+                            <div class="map-placeholder">
+                                <img
+                                    src="https://placehold.co/800x600/e9ecef/6c757d?text=Company+Location"
+                                    alt="Company Location"
+                                    class="map-img"
+                                />
+                                <a
+                                    href={contactInfo.mapUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="map-link"
+                                >
+                                    View on Amap →
+                                </a>
+                            </div>
+                        )
+                    }
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 </BaseLayout>
 
 <script>
-  // 表单提交：接入 Web3Forms（留言转发到注册邮箱）
-  const form = document.getElementById("contactForm") as HTMLFormElement | null;
-  const result = document.getElementById("formResult");
-  const submitBtn = form?.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+    const form = document.getElementById(
+        "contactForm",
+    ) as HTMLFormElement | null;
+    const result = document.getElementById("formResult");
+    const submitBtn = form?.querySelector(
+        'button[type="submit"]',
+    ) as HTMLButtonElement | null;
 
-  form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (!form || !result || !submitBtn) return;
+    form?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        if (!form || !result || !submitBtn) return;
 
-    // 蜜罐字段被填写 → 判定为垃圾提交，静默丢弃
-    if ((form.elements.namedItem("botcheck") as HTMLInputElement | null)?.checked) {
-      form.reset();
-      return;
-    }
+        if (
+            (form.elements.namedItem("botcheck") as HTMLInputElement | null)
+                ?.checked
+        ) {
+            form.reset();
+            return;
+        }
 
-    const data = Object.fromEntries(new FormData(form).entries());
-    submitBtn.disabled = true;
-    submitBtn.textContent = "提交中…";
-    result.textContent = "";
-    result.className = "form-result";
+        const data = Object.fromEntries(new FormData(form).entries());
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Submitting…";
+        result.textContent = "";
+        result.className = "form-result";
 
-    try {
-      const res = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify(data),
-      });
-      const json = await res.json();
-      if (json.success) {
-        result.textContent = "✓ 留言已提交，我们会尽快与您联系！";
-        result.classList.add("success");
-        form.reset();
-      } else {
-        result.textContent = "✗ 提交失败：" + (json.message || "请稍后重试");
-        result.classList.add("error");
-      }
-    } catch {
-      result.textContent = "✗ 网络异常，请稍后重试";
-      result.classList.add("error");
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "提交留言";
-    }
-  });
+        try {
+            const res = await fetch("https://api.web3forms.com/submit", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Accept: "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+            const json = await res.json();
+            if (json.success) {
+                result.textContent =
+                    "✓ Inquiry submitted successfully! We'll contact you soon.";
+                result.classList.add("success");
+                form.reset();
+            } else {
+                result.textContent =
+                    "✗ Submission failed: " +
+                    (json.message || "Please try again later");
+                result.classList.add("error");
+            }
+        } catch {
+            result.textContent = "✗ Network error, please try again later";
+            result.classList.add("error");
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit Inquiry";
+        }
+    });
 </script>
 
-<!-- 高德地图初始化：仅在 config.ts 配置了 amapKey 后生效 -->
 <script
-  define:vars={{
-    amapKey: contactInfo.amapKey,
-    securityJsCode: contactInfo.amapSecurityJsCode,
-    address: contactInfo.address,
-  }}
+    define:vars={{
+        amapKey: contactInfo.amapKey,
+        securityJsCode: contactInfo.amapSecurityJsCode,
+        address: contactInfo.address,
+    }}
 >
-  if (amapKey && document.getElementById("amapContainer")) {
-    window._AMapSecurityConfig = { securityJsCode };
-    const amapScript = document.createElement("script");
-    amapScript.src = `https://webapi.amap.com/maps?v=2.0&key=${amapKey}&plugin=AMap.Geocoder`;
-    amapScript.onload = () => {
-      const map = new AMap.Map("amapContainer", { zoom: 16, viewMode: "2D" });
-      const geocoder = new AMap.Geocoder();
-      geocoder.getLocation(address, (status, result) => {
-        if (status === "complete" && result.geocodes && result.geocodes.length > 0) {
-          const position = result.geocodes[0].location;
-          map.setCenter(position);
-          map.add(new AMap.Marker({ position, title: "东莞市同盛钟表有限公司" }));
-        }
-      });
-    };
-    document.head.appendChild(amapScript);
-  }
+    if (amapKey && document.getElementById("amapContainer")) {
+        window._AMapSecurityConfig = { securityJsCode };
+        const amapScript = document.createElement("script");
+        amapScript.src = `https://webapi.amap.com/maps?v=2.0&key=${amapKey}&plugin=AMap.Geocoder`;
+        amapScript.onload = () => {
+            const map = new AMap.Map("amapContainer", {
+                zoom: 16,
+                viewMode: "2D",
+            });
+            const geocoder = new AMap.Geocoder();
+            geocoder.getLocation(address, (status, result) => {
+                if (
+                    status === "complete" &&
+                    result.geocodes &&
+                    result.geocodes.length > 0
+                ) {
+                    const position = result.geocodes[0].location;
+                    map.setCenter(position);
+                    map.add(
+                        new AMap.Marker({
+                            position,
+                            title: "Dongguan Tongsheng Watch Co., Ltd.",
+                        }),
+                    );
+                }
+            });
+        };
+        document.head.appendChild(amapScript);
+    }
 </script>
 
 <style>
-  /* ===== 联系我们页专属样式 ===== */
+    .page-banner {
+        background: linear-gradient(135deg, #1a1d23, #3a4250);
+        color: #fff;
+        text-align: center;
+        padding: 80px 24px 64px;
+    }
+    .page-banner h1 {
+        font-size: 34px;
+        letter-spacing: 3px;
+        margin-bottom: 14px;
+    }
+    .page-banner p {
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.75);
+        letter-spacing: 2px;
+    }
 
-  /* 页面横幅 */
-  .page-banner {
-    background: linear-gradient(135deg, #1a1d23, #3a4250);
-    color: #fff;
-    text-align: center;
-    padding: 80px 24px 64px;
-  }
-  .page-banner h1 {
-    font-size: 34px;
-    letter-spacing: 4px;
-    margin-bottom: 14px;
-  }
-  .page-banner p {
-    font-size: 15px;
-    color: rgba(255, 255, 255, 0.75);
-    letter-spacing: 2px;
-  }
-
-  /* 联系方式卡片 */
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
-  @media (min-width: 768px) {
     .contact-grid {
-      grid-template-columns: repeat(3, 1fr);
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
     }
-  }
-  .contact-card {
-    background: #fff;
-    border: 1px solid var(--color-border);
-    border-radius: 10px;
-    padding: 36px 28px;
-    text-align: center;
-    transition: box-shadow 0.25s, transform 0.25s;
-  }
-  .contact-card:hover {
-    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08);
-    transform: translateY(-4px);
-  }
-  .contact-icon {
-    font-size: 34px;
-    margin-bottom: 16px;
-  }
-  .contact-label {
-    font-size: 17px;
-    color: var(--color-primary);
-    margin-bottom: 12px;
-  }
-  .contact-value {
-    font-size: 14px;
-    color: var(--color-text-light);
-    line-height: 2;
-    word-break: break-all;
-  }
-  .contact-value a {
-    color: var(--color-accent);
-    text-decoration: none;
-  }
+    @media (min-width: 768px) {
+        .contact-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+    .contact-card {
+        background: #fff;
+        border: 1px solid var(--color-border);
+        border-radius: 10px;
+        padding: 36px 28px;
+        text-align: center;
+        transition:
+            box-shadow 0.25s,
+            transform 0.25s;
+    }
+    .contact-card:hover {
+        box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08);
+        transform: translateY(-4px);
+    }
+    .contact-icon {
+        font-size: 34px;
+        margin-bottom: 16px;
+    }
+    .contact-label {
+        font-size: 17px;
+        color: var(--color-primary);
+        margin-bottom: 12px;
+    }
+    .contact-value {
+        font-size: 14px;
+        color: var(--color-text-light);
+        line-height: 2;
+        word-break: break-all;
+    }
+    .contact-value a {
+        color: var(--color-accent);
+        text-decoration: none;
+    }
 
-  /* 表单 + 地图 */
-  .form-map-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-  @media (min-width: 900px) {
     .form-map-grid {
-      grid-template-columns: 1.2fr 1fr;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 32px;
     }
-  }
-  .form-card,
-  .map-card {
-    background: #fff;
-    border: 1px solid var(--color-border);
-    border-radius: 10px;
-    padding: 36px 32px;
-  }
-  .form-title {
-    font-size: 22px;
-    color: var(--color-primary);
-    margin-bottom: 8px;
-  }
-  .form-desc {
-    font-size: 14px;
-    color: var(--color-text-light);
-    margin-bottom: 24px;
-  }
+    @media (min-width: 900px) {
+        .form-map-grid {
+            grid-template-columns: 1.2fr 1fr;
+        }
+    }
+    .form-card,
+    .map-card {
+        background: #fff;
+        border: 1px solid var(--color-border);
+        border-radius: 10px;
+        padding: 36px 32px;
+    }
+    .form-title {
+        font-size: 22px;
+        color: var(--color-primary);
+        margin-bottom: 8px;
+    }
+    .form-desc {
+        font-size: 14px;
+        color: var(--color-text-light);
+        margin-bottom: 24px;
+    }
 
-  /* 表单 */
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 18px;
-  }
-  @media (min-width: 600px) {
     .form-row {
-      grid-template-columns: 1fr 1fr;
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
     }
-  }
-  .form-group {
-    margin-bottom: 18px;
-  }
-  .form-group label {
-    display: block;
-    font-size: 14px;
-    color: var(--color-text);
-    margin-bottom: 8px;
-  }
-  .form-group input,
-  .form-group textarea {
-    width: 100%;
-    padding: 11px 14px;
-    font-size: 14px;
-    border: 1px solid var(--color-border);
-    border-radius: 6px;
-    outline: none;
-    font-family: inherit;
-    transition: border-color 0.2s;
-    background: #fff;
-  }
-  .form-group input:focus,
-  .form-group textarea:focus {
-    border-color: var(--color-accent);
-  }
-  .form-group textarea {
-    resize: vertical;
-  }
-  .btn-block {
-    width: 100%;
-    border: none;
-    cursor: pointer;
-    font-size: 15px;
-  }
+    @media (min-width: 600px) {
+        .form-row {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+    .form-group {
+        margin-bottom: 18px;
+    }
+    .form-group label {
+        display: block;
+        font-size: 14px;
+        color: var(--color-text);
+        margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group textarea {
+        width: 100%;
+        padding: 11px 14px;
+        font-size: 14px;
+        border: 1px solid var(--color-border);
+        border-radius: 6px;
+        outline: none;
+        font-family: inherit;
+        transition: border-color 0.2s;
+        background: #fff;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+        border-color: var(--color-accent);
+    }
+    .form-group textarea {
+        resize: vertical;
+    }
+    .btn-block {
+        width: 100%;
+        border: none;
+        cursor: pointer;
+        font-size: 15px;
+    }
 
-  /* 表单提交结果提示 */
-  .form-result {
-    margin-top: 12px;
-    font-size: 14px;
-    text-align: center;
-    min-height: 20px;
-  }
-  .form-result.success {
-    color: #2e7d32;
-  }
-  .form-result.error {
-    color: #c62828;
-  }
+    .form-result {
+        margin-top: 12px;
+        font-size: 14px;
+        text-align: center;
+        min-height: 20px;
+    }
+    .form-result.success {
+        color: #2e7d32;
+    }
+    .form-result.error {
+        color: #c62828;
+    }
 
-  /* 地图占位 */
-  .map-placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-  /* 高德地图容器 */
-  .map-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .amap-container {
-    width: 100%;
-    height: 420px;
-    border-radius: 8px;
-    overflow: hidden;
-    background: #e9ecef;
-  }
-  .map-link-below {
-    align-self: center;
-  }
-  .map-img {
-    width: 100%;
-    height: auto;
-    border-radius: 8px;
-    object-fit: cover;
-  }
-  .map-link {
-    color: var(--color-accent);
-    text-decoration: none;
-    font-size: 14px;
-  }
-  .map-link:hover {
-    text-decoration: underline;
-  }
+    .map-placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+    }
+    .map-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    .amap-container {
+        width: 100%;
+        height: 420px;
+        border-radius: 8px;
+        overflow: hidden;
+        background: #e9ecef;
+    }
+    .map-link-below {
+        align-self: center;
+    }
+    .map-img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        object-fit: cover;
+    }
+    .map-link {
+        color: var(--color-accent);
+        text-decoration: none;
+        font-size: 14px;
+    }
+    .map-link:hover {
+        text-decoration: underline;
+    }
 </style>
