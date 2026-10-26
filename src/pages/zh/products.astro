@@ -38,7 +38,7 @@ const promises = [
 <BaseLayout
   lang="zh"
   title="产品服务"
-  description="同盛钟表产品与服务：实心带、包边带、表壳、网带、弹弓带五大品类，一站式定制解决方案。"
+  description="同盛钟表产品与服务：实心带、包边带、表壳、网带、表扣五大品类，一站式定制解决方案。"
 >
   <!-- 页面横幅 -->
   <section class="page-banner">
@@ -53,10 +53,10 @@ const promises = [
       <div class="about-grid">
         <div class="about-text">
           <p>
-            同盛钟表深耕中高端手表配件领域二十载，主营实心带、包边带、表壳、网带、弹弓带五大品类，材质涵盖316L不锈钢、304不锈钢、6063航空铝料、钛2、钛5及钽（超硬特种材料）等高端品类，精准适配不同品牌定位、多元使用场景的定制化需求。
+            同盛钟表深耕中高端手表配件领域二十载，主营实心带、包边带、表壳、网带、表扣五大品类，材质涵盖304/316/904不锈钢、6063航空铝料、钛2、钛5及钽（超硬特种材料）等高端品类，精准适配不同品牌定位、多元使用场景的定制化需求。
           </p>
           <p>
-            公司拥有全品类表带款式库，可满足多样化选型需求，更具备成熟的瑞士散件出口生产经验，产品标准对标国际高端市场。作为世界中高端手表品牌的长期供应商，客户涵盖VICTORINOX、VERSACE、TISSOT、FERRAGAMO、CITIZEN、FOSSIL等23个国际知名品牌。
+            公司拥有全品类表带款式库，可满足多样化选型需求，更具备成熟的瑞士散件出口生产经验，产品标准对标国际高端市场。作为世界中高端手表品牌的长期供应商，客户涵盖VICTORINOX、VERSACE、TISSOT、FERRAGAMO、CITIZEN、FOSSIL等24个国际知名品牌。
           </p>
           <p>
             公司可提供从来图设计、研发生产到成品出货的一站式定制服务，每年自主研发新款不少于100款，以创新实力与精工品质，赋能全球腕表品牌发展。
@@ -93,6 +93,12 @@ const promises = [
                   <span class="meta-label">产能</span>
                   <span class="meta-value">{p.data.capacity}</span>
                 </div>
+                {p.data.styles && (
+                  <div class="meta-item">
+                    <span class="meta-label">款式</span>
+                    <span class="meta-value">{p.data.styles}</span>
+                  </div>
+                )}
               </div>
               <a class="product-more" href={`/zh/products/${p.id}/`}>
                 查看详情 →

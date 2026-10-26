@@ -11,19 +11,19 @@ export const siteConfig = {
     name: "同盛钟表",
     fullName: "东莞市同盛钟表有限公司",
     description:
-      "东莞市同盛钟表有限公司成立于2004年，深耕中高端手表配件领域二十载，专注为全球高端腕表品牌打造实心表带、包边表带、表壳、网带、弹弓带等高品质配件，月产能达实心带8万条、包边带10万条、表壳4万套。",
+      "东莞市同盛钟表有限公司成立于2004年，深耕中高端手表配件领域二十载，专注为全球高端腕表品牌打造实心表带、包边表带、表壳、网带、表扣等高品质配件，月产能达实心带8万条、包边带10万条、表壳4万套。",
     copyright: "版权所有:东莞市同盛钟表有限公司",
   },
   en: {
     name: "Tongsheng Watch",
     fullName: "Dongguan Tongsheng Watch Co., Ltd.",
     description:
-      "Founded in 2004, Dongguan Tongsheng Watch Co., Ltd. has been dedicated to mid-to-high-end watch accessories for 20 years, producing solid bands, edge-wrapped bands, watch cases, mesh bands and spring bands for global premium watch brands.",
+      "Founded in 2004, Dongguan Tongsheng Watch Co., Ltd. has been dedicated to mid-to-high-end watch accessories for 20 years, producing solid bands, edge-wrapped bands, watch cases, mesh bands and watch clasps for global premium watch brands.",
     copyright: "Copyright: Dongguan Tongsheng Watch Co., Ltd.",
   },
   // 以下信息两种语言共用
-  // LOGO 图片（线上 logo.webp）
-  logo: "https://tongshengwatch.zzydhj.com/logo.webp",
+  // LOGO 图片（透明底，本地 /public/images/logo.png）
+  logo: "/images/logo.png",
   icp: "粤ICP备XXXXXXXX号-1", // TODO: 替换为真实备案号
   icpUrl: "https://beian.miit.gov.cn/",
   gongan: "粤公网安备XXXXXXXXXXXXX号", // TODO: 替换为真实公安备案号
@@ -36,17 +36,31 @@ export const contactInfo = {
   address: "广东省东莞市东城街道榴花工业路6号1栋201室",
   addressEn:
     "Room 201, Building 1, No.6 Liuhua Industrial Road, Dongcheng Street, Dongguan, Guangdong, China",
-  // 三个业务部门联系人
+  // 业务联系人（单一数据源）：
+  //   - 页脚按业务分组展示（业务线 + 联系人 + 电话 + 邮箱）
+  //   - 联系页拆为「部门电话」与「业务邮箱」两栏
   contacts: [
-    { name: "付先生（实心带部）", nameEn: "Mr. Fu (Solid Band)", tel: "13925827336" },
-    { name: "吴小姐（包边带部）", nameEn: "Ms. Wu (Edge Band)", tel: "13686216590" },
-    { name: "杨先生（表壳部）", nameEn: "Mr. Yang (Watch Case)", tel: "15917731500" },
-  ],
-  // 三个业务邮箱
-  emails: [
-    { label: "同盛实心带", labelEn: "Solid Band", email: "tszb9899@163.com" },
-    { label: "创盛包边带", labelEn: "Edge Band", email: "tszb9999@163.com" },
-    { label: "创盛表壳", labelEn: "Watch Case", email: "cszb1688@163.com" },
+    {
+      line: "实心带", lineEn: "Solid Band",
+      person: "付先生", personEn: "Mr. Fu",
+      dept: "实心带部", deptEn: "Solid Band",
+      tel: "13925827336",
+      email: "tszb9899@163.com", emailLabel: "同盛实心带", emailLabelEn: "Solid Band",
+    },
+    {
+      line: "表壳", lineEn: "Watch Case",
+      person: "杨先生", personEn: "Mr. Yang",
+      dept: "表壳部", deptEn: "Watch Case",
+      tel: "15917731500",
+      email: "cszb1688@126.com", emailLabel: "创盛表壳", emailLabelEn: "Watch Case",
+    },
+    {
+      line: "包边带 / 网带", lineEn: "Edge / Mesh Band",
+      person: "吴小姐", personEn: "Ms. Wu",
+      dept: "包边带部", deptEn: "Edge Band",
+      tel: "13686216590",
+      email: "tszb9999@163.com", emailLabel: "创盛包边带", emailLabelEn: "Edge Band",
+    },
   ],
   mapUrl:
     "http://m.amap.com/search/view/keywords=广东省东莞市东城街道榴花工业路6号1栋201室",
@@ -76,6 +90,7 @@ export const navItems: NavItem[] = [
     href: "/about/",
     children: [
       { zh: "企业介绍", en: "Introduction", href: "/about/#intro" },
+      { zh: "公司环境", en: "Environment", href: "/about/#environment" },
       { zh: "企业理念", en: "Philosophy", href: "/about/#philosophy" },
       { zh: "发展历程", en: "History", href: "/about/#history" },
       { zh: "质量保证", en: "Quality", href: "/about/#quality" },
@@ -93,7 +108,7 @@ export const navItems: NavItem[] = [
       { zh: "包边带", en: "Edge Band", href: "/products/#edge" },
       { zh: "表壳", en: "Watch Case", href: "/products/#case" },
       { zh: "网带", en: "Mesh Band", href: "/products/#mesh" },
-      { zh: "弹弓带", en: "Spring Band", href: "/products/#spring" },
+      { zh: "表扣", en: "Clasp", href: "/products/#spring" },
     ],
   },
   { zh: "新闻中心", en: "News", href: "/news/" },
@@ -116,7 +131,7 @@ export const footerText = {
       { label: "实心带", href: "/products/#solid" },
       { label: "包边带", href: "/products/#edge" },
       { label: "表壳", href: "/products/#case" },
-      { label: "网带 · 弹弓带", href: "/products/#mesh" },
+      { label: "网带 · 表扣", href: "/products/#mesh" },
     ],
   },
   en: {
@@ -133,7 +148,7 @@ export const footerText = {
       { label: "Solid Band", href: "/products/#solid" },
       { label: "Edge Band", href: "/products/#edge" },
       { label: "Watch Case", href: "/products/#case" },
-      { label: "Mesh · Spring Band", href: "/products/#mesh" },
+      { label: "Mesh · Clasp", href: "/products/#mesh" },
     ],
   },
 };

@@ -51,14 +51,59 @@ const timeline = [
 
 const certificates = [
     "ISO 9001 Quality Management System Certification",
-    "ISO 9001:2008 Quality System (passed in 2014)",
     "ERP System Fully Launched (2016)",
     "Swiss Component Export Experience",
     "Full-Process Quality Inspection Equipment",
     "100+ New Designs Developed Annually",
 ];
 
+// Certificate scans (click to view full size; images live in /public/images/certificates/)
+const certImages = [
+    {
+        title: "Chuangsheng Watch · Quality Management System Certificate (ISO 9001:2015)",
+        src: "/images/certificates/iso-chuangsheng.jpg",
+    },
+    {
+        title: "Tongsheng Watch · Quality Management System Certificate (ISO 9001:2015)",
+        src: "/images/certificates/iso-tongsheng.jpg",
+    },
+];
+
+// Company environment photos (images in /public/images/environment/, click to view full size)
+const environment = [
+    {
+        title: "Factory Exterior",
+        src: "/images/environment/factory-exterior.jpg",
+    },
+    { title: "Reception", src: "/images/environment/reception.jpg" },
+    { title: "Office Area", src: "/images/environment/office.jpg" },
+    { title: "Product Showroom", src: "/images/environment/showroom.jpg" },
+    { title: "CNC Workshop", src: "/images/environment/workshop-cnc.jpg" },
+    {
+        title: "Automated Production Line",
+        src: "/images/environment/production-line.jpg",
+    },
+    { title: "Assembly Workshop", src: "/images/environment/assembly.jpg" },
+    {
+        title: "Precision Processing",
+        src: "/images/environment/processing.jpg",
+    },
+    { title: "Polishing Workshop", src: "/images/environment/polishing.jpg" },
+    { title: "CNC Equipment", src: "/images/environment/cnc-equipment.jpg" },
+    {
+        title: "Automatic Machine Workshop",
+        src: "/images/environment/auto-machines.jpg",
+    },
+    {
+        title: "Hand-Polishing Stations",
+        src: "/images/environment/hand-polishing.jpg",
+    },
+];
+
 const LOGO_BASE = "https://tongshengwatch.zzydhj.com/customer-logo";
+// logo supports either a local/absolute path (starting with / or http) or a filename relative to LOGO_BASE
+const logoUrl = (logo: string) =>
+    /^(https?:|\/)/.test(logo) ? logo : `${LOGO_BASE}/${logo}`;
 const clients = [
     { name: "VICTORINOX", logo: "VICTORINOX.png" },
     { name: "VERSACE", logo: "VERSACE.png" },
@@ -83,6 +128,7 @@ const clients = [
     { name: "TOMMY HILFIGER", logo: "TOMMY_HILFIGER.png" },
     { name: "LACOSTE", logo: "LACOSTE.png" },
     { name: "DIESEL", logo: "DIESEL.png" },
+    { name: "FURLA", logo: "/images/customer-logo/FURLA.png" },
 ];
 ---
 
@@ -114,14 +160,14 @@ const clients = [
                     </p>
                     <p>
                         Our solid watch bands are crafted from top-grade
-                        materials including 316L stainless steel, 304 stainless
-                        steel, 6063 aerospace aluminum, titanium Grade 2,
-                        titanium Grade 5 and tantalum (an ultra-hard specialty
-                        material), precisely matching diverse brand positioning
-                        and usage scenarios.
+                        materials including 304/316/904 stainless steel, 6063
+                        aerospace aluminum, titanium Grade 2, titanium Grade 5
+                        and tantalum (an ultra-hard specialty material),
+                        precisely matching diverse brand positioning and usage
+                        scenarios.
                     </p>
                     <p>
-                        With a 5,000 m² modern production facility and over 200
+                        With a 5,000 m² modern production facility and over 300
                         advanced machines — including presses, hydraulic
                         presses, CNC machines, wire-cutting machines, laser
                         cutters, EDM machines, automatic drilling machines and
@@ -144,11 +190,40 @@ const clients = [
                 </div>
                 <div class="about-image">
                     <img
-                        src="https://tongshengwatch.zzydhj.com/products/fgsmndfg.webp"
-                        alt="Company Facility"
+                        src="/images/company-gate.jpg"
+                        alt="Company Gate"
                         class="about-img"
                     />
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== Company Environment ====== -->
+    <section class="section" id="environment">
+        <div class="container">
+            <h2 class="section-title">Company Environment</h2>
+            <p class="section-subtitle">
+                Modern production base · Full-process in-house manufacturing
+            </p>
+            <div class="env-grid">
+                {
+                    environment.map((item) => (
+                        <a
+                            class="env-item"
+                            href={item.src}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <img
+                                src={item.src}
+                                alt={item.title}
+                                loading="lazy"
+                            />
+                            <span class="env-cap">{item.title}</span>
+                        </a>
+                    ))
+                }
             </div>
         </div>
     </section>
@@ -227,7 +302,7 @@ const clients = [
                     <div class="card-num">01</div>
                     <h3 class="card-title">Material Selection</h3>
                     <p class="card-desc">
-                        Premium 316L/304 stainless steel, 6063 aluminum, Ti
+                        Premium 304/316/904 stainless steel, 6063 aluminum, Ti
                         Grade 2/5 and tantalum — quality starts at the source.
                     </p>
                 </div>
@@ -273,6 +348,21 @@ const clients = [
                     ))
                 }
             </div>
+            <div class="cert-photo-grid">
+                {
+                    certImages.map((c) => (
+                        <a
+                            class="cert-photo"
+                            href={c.src}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <img src={c.src} alt={c.title} loading="lazy" />
+                            <span class="cert-photo-cap">{c.title}</span>
+                        </a>
+                    ))
+                }
+            </div>
         </div>
     </section>
 
@@ -291,7 +381,7 @@ const clients = [
                         <div class="cert-item client-item">
                             <img
                                 class="client-logo"
-                                src={`${LOGO_BASE}/${client.logo}`}
+                                src={logoUrl(client.logo)}
                                 alt={client.name}
                                 loading="lazy"
                             />
@@ -473,6 +563,91 @@ const clients = [
     .cert-icon {
         font-size: 24px;
         flex-shrink: 0;
+    }
+
+    /* Certificate scan gallery */
+    .cert-photo-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 16px;
+        margin-top: 28px;
+    }
+    .cert-photo {
+        display: block;
+        background: #fff;
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        padding: 10px;
+        text-decoration: none;
+        transition:
+            box-shadow 0.2s,
+            transform 0.2s;
+    }
+    .cert-photo:hover {
+        box-shadow: 0 8px 26px rgba(0, 0, 0, 0.1);
+        transform: translateY(-3px);
+    }
+    .cert-photo img {
+        width: 100%;
+        height: 200px;
+        object-fit: contain;
+        background: #fff;
+        border-radius: 4px;
+        border: 1px solid var(--color-border);
+    }
+    .cert-photo-cap {
+        display: block;
+        margin-top: 8px;
+        font-size: 12px;
+        color: var(--color-text-light);
+        text-align: center;
+        line-height: 1.5;
+    }
+
+    /* Company environment gallery */
+    .env-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 16px;
+        margin-top: 40px;
+    }
+    @media (min-width: 600px) {
+        .env-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    @media (min-width: 900px) {
+        .env-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+    .env-item {
+        display: block;
+        background: #fff;
+        border: 1px solid var(--color-border);
+        border-radius: 8px;
+        overflow: hidden;
+        text-decoration: none;
+        transition:
+            box-shadow 0.2s,
+            transform 0.2s;
+    }
+    .env-item:hover {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+        transform: translateY(-3px);
+    }
+    .env-item img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        display: block;
+    }
+    .env-cap {
+        display: block;
+        padding: 10px 12px;
+        font-size: 13px;
+        color: var(--color-text);
+        text-align: center;
     }
 
     .client-item {

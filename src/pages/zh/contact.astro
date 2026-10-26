@@ -32,7 +32,7 @@ import { contactInfo } from "../../config";
             {
               contactInfo.contacts.map((c) => (
                 <>
-                  {c.name}：<a href={`tel:${c.tel}`}>{c.tel}</a>
+                  {c.person}（{c.dept}）：<a href={`tel:${c.tel}`}>{c.tel}</a>
                   <br />
                 </>
               ))
@@ -44,9 +44,9 @@ import { contactInfo } from "../../config";
           <h3 class="contact-label">业务邮箱</h3>
           <p class="contact-value">
             {
-              contactInfo.emails.map((e) => (
+              contactInfo.contacts.map((c) => (
                 <>
-                  {e.label}：<a href={`mailto:${e.email}`}>{e.email}</a>
+                  {c.emailLabel}：<a href={`mailto:${c.email}`}>{c.email}</a>
                   <br />
                 </>
               ))

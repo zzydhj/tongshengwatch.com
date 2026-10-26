@@ -55,15 +55,45 @@ const timeline = [
 // 资质证书数据（可直接修改）
 const certificates = [
   "ISO9001 质量管理体系认证",
-  "ISO9001:2008 质量体系认证（2014年通过）",
   "ERP 管理系统全面上线（2016年）",
   "瑞士散件出口生产经验",
   "全流程质检设备体系",
   "多项自主研发新款（每年不少于100款）",
 ];
 
+// 证书扫描件（点击可看大图，图片放于 /public/images/certificates/）
+const certImages = [
+  {
+    title: "创盛钟表 · 质量管理体系认证证书（ISO 9001:2015）",
+    src: "/images/certificates/iso-chuangsheng.jpg",
+  },
+  {
+    title: "同盛钟表 · 质量管理体系认证证书（ISO 9001:2015）",
+    src: "/images/certificates/iso-tongsheng.jpg",
+  },
+];
+
+// 公司环境照片（图片放于 /public/images/environment/，点击可看大图）
+const environment = [
+  { title: "厂区外景", src: "/images/environment/factory-exterior.jpg" },
+  { title: "前台接待", src: "/images/environment/reception.jpg" },
+  { title: "办公区", src: "/images/environment/office.jpg" },
+  { title: "产品展厅", src: "/images/environment/showroom.jpg" },
+  { title: "CNC 加工车间", src: "/images/environment/workshop-cnc.jpg" },
+  { title: "自动化生产线", src: "/images/environment/production-line.jpg" },
+  { title: "装配车间", src: "/images/environment/assembly.jpg" },
+  { title: "精密加工作业", src: "/images/environment/processing.jpg" },
+  { title: "磨光车间", src: "/images/environment/polishing.jpg" },
+  { title: "数控设备", src: "/images/environment/cnc-equipment.jpg" },
+  { title: "自动机床车间", src: "/images/environment/auto-machines.jpg" },
+  { title: "手工磨光工位", src: "/images/environment/hand-polishing.jpg" },
+];
+
 // 合作客户数据（品牌 logo 图片存放于线上 customer-logo 目录）
 const LOGO_BASE = "https://tongshengwatch.zzydhj.com/customer-logo";
+// logo 支持两种写法：本地/绝对路径（以 / 或 http 开头）或相对于 LOGO_BASE 的文件名
+const logoUrl = (logo: string) =>
+  /^(https?:|\/)/.test(logo) ? logo : `${LOGO_BASE}/${logo}`;
 const clients = [
   { name: "VICTORINOX（瑞士军刀）", logo: "VICTORINOX.png" },
   { name: "VERSACE（范思哲）", logo: "VERSACE.png" },
@@ -88,6 +118,7 @@ const clients = [
   { name: "TOMMY HILFIGER", logo: "TOMMY_HILFIGER.png" },
   { name: "LACOSTE（法国鳄鱼）", logo: "LACOSTE.png" },
   { name: "DIESEL（迪赛）", logo: "DIESEL.png" },
+  { name: "FURLA（芙拉）", logo: "/images/customer-logo/FURLA.png" },
 ];
 ---
 
@@ -112,10 +143,10 @@ const clients = [
             东莞市同盛钟表有限公司成立于2004年4月，深耕中高端手表配件领域二十载，始终坚守“优质、高效、诚信”的经营理念，专注为全球高端腕表品牌打造兼具文化底蕴与精湛品质的手表带产品。公司拥有全品类表带款式库，可满足多样化选型需求，更具备成熟的瑞士散件出口生产经验，产品标准对标国际高端市场。
           </p>
           <p>
-            旗下实心表带均甄选顶级原料精制而成，材质涵盖316L不锈钢、304不锈钢、6063航空铝料、钛2、钛5及钽（超硬特种材料）等高端品类，精准适配不同品牌定位、多元使用场景的定制化需求。
+            旗下实心表带均甄选顶级原料精制而成，材质涵盖304/316/904不锈钢、6063航空铝料、钛2、钛5及钽（超硬特种材料）等高端品类，精准适配不同品牌定位、多元使用场景的定制化需求。
           </p>
           <p>
-            公司坐拥5000㎡现代化标准化生产基地，配备冲床、油压机、CNC机床、线割机、激光切割机、火花机、电脑钻孔机、自动对钻机、自动磨光机等先进生产设备200余台，不锈钢实芯钢带月产能高达8万条。现有员工190人，其中冲压、钻孔、锣铣、组装、磨光、CNC等专业技术人才50人。
+            公司坐拥5000㎡现代化标准化生产基地，配备冲床、油压机、CNC机床、线割机、激光切割机、火花机、电脑钻孔机、自动对钻机、自动磨光机等先进生产设备300余台，不锈钢实芯钢带月产能高达8万条。现有员工190人，其中冲压、钻孔、锣铣、组装、磨光、CNC等专业技术人才50人。
           </p>
           <p>
             旗下兄弟企业东莞市创盛钟表有限公司起步于2008年，2022年3月正式注册成立，是一家集不锈钢包边带、网带、表壳研发、生产、加工于一体的专业腕表配件企业。目前已形成稳定规模化产能：包边带10万条/月、网带3万条/月、表壳4万套/月，可提供从来图设计、研发生产到成品出货的一站式定制服务，每年自主研发新款不少于100款。
@@ -124,11 +155,34 @@ const clients = [
         <div class="about-image">
           <!-- 替换成你的图片: <img src="/images/company.jpg" alt="公司实景" /> -->
           <img
-            src="https://tongshengwatch.zzydhj.com/products/fgsmndfg.webp"
-            alt="公司实景"
+            src="/images/company-gate.jpg"
+            alt="公司大门"
             class="about-img"
           />
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== 公司环境 ====== -->
+  <section class="section" id="environment">
+    <div class="container">
+      <h2 class="section-title">公司环境</h2>
+      <p class="section-subtitle">现代化生产基地 · 全流程自主加工</p>
+      <div class="env-grid">
+        {
+          environment.map((item) => (
+            <a
+              class="env-item"
+              href={item.src}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src={item.src} alt={item.title} loading="lazy" />
+              <span class="env-cap">{item.title}</span>
+            </a>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -201,7 +255,7 @@ const clients = [
           <div class="card-num">01</div>
           <h3 class="card-title">原料甄选</h3>
           <p class="card-desc">
-            严选316L/304不锈钢、6063航空铝、钛2、钛5、钽等高端原料，从源头保证品质。
+            严选304/316/904不锈钢、6063航空铝、钛2、钛5、钽等高端原料，从源头保证品质。
           </p>
         </div>
         <div class="card">
@@ -243,6 +297,21 @@ const clients = [
           ))
         }
       </div>
+      <div class="cert-photo-grid">
+        {
+          certImages.map((c) => (
+            <a
+              class="cert-photo"
+              href={c.src}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <img src={c.src} alt={c.title} loading="lazy" />
+              <span class="cert-photo-cap">{c.title}</span>
+            </a>
+          ))
+        }
+      </div>
     </div>
   </section>
 
@@ -259,7 +328,7 @@ const clients = [
             <div class="cert-item client-item">
               <img
                 class="client-logo"
-                src={`${LOGO_BASE}/${client.logo}`}
+                src={logoUrl(client.logo)}
                 alt={client.name}
                 loading="lazy"
               />
@@ -446,6 +515,91 @@ const clients = [
   .cert-icon {
     font-size: 24px;
     flex-shrink: 0;
+  }
+
+  /* 证书扫描件图片墙 */
+  .cert-photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 16px;
+    margin-top: 28px;
+  }
+  .cert-photo {
+    display: block;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 10px;
+    text-decoration: none;
+    transition:
+      box-shadow 0.2s,
+      transform 0.2s;
+  }
+  .cert-photo:hover {
+    box-shadow: 0 8px 26px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+  }
+  .cert-photo img {
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+  }
+  .cert-photo-cap {
+    display: block;
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--color-text-light);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* 公司环境图片墙 */
+  .env-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 40px;
+  }
+  @media (min-width: 600px) {
+    .env-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (min-width: 900px) {
+    .env-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  .env-item {
+    display: block;
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    transition:
+      box-shadow 0.2s,
+      transform 0.2s;
+  }
+  .env-item:hover {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    transform: translateY(-3px);
+  }
+  .env-item img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+  }
+  .env-cap {
+    display: block;
+    padding: 10px 12px;
+    font-size: 13px;
+    color: var(--color-text);
+    text-align: center;
   }
 
   /* 合作客户 logo 墙 */

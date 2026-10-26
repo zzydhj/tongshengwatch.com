@@ -29,6 +29,8 @@ const products = defineCollection({
     image: z.string(), // 产品主图 URL（列表页与详情页共用）
     materials: z.string(), // 材质
     capacity: z.string(), // 产能
+    styles: z.string().optional(), // 款式（可选，如 "单珠带 / 多珠带 / 竹节带"）
+    gallery: z.array(z.string()).optional(), // 产品图赏（可选，多张产品图 URL，可随时追加）
     order: z.number(), // 排序（数字越小越靠前）
     summary: z.string().optional(), // SEO 描述（可选）
   }),

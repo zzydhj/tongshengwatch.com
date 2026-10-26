@@ -32,7 +32,7 @@ import { contactInfo } from "../config";
                         {
                             contactInfo.contacts.map((c) => (
                                 <>
-                                    {c.nameEn}:{" "}
+                                    {c.personEn} ({c.deptEn}):{" "}
                                     <a href={`tel:${c.tel}`}>{c.tel}</a>
                                     <br />
                                 </>
@@ -45,10 +45,10 @@ import { contactInfo } from "../config";
                     <h3 class="contact-label">Business Emails</h3>
                     <p class="contact-value">
                         {
-                            contactInfo.emails.map((e) => (
+                            contactInfo.contacts.map((c) => (
                                 <>
-                                    {e.labelEn}:{" "}
-                                    <a href={`mailto:${e.email}`}>{e.email}</a>
+                                    {c.emailLabelEn}:{" "}
+                                    <a href={`mailto:${c.email}`}>{c.email}</a>
                                     <br />
                                 </>
                             ))
