@@ -14,7 +14,7 @@ const stats = [
 ];
 
 // 五大主营产品（img 为线上真实产品图）
-// contain: true 表示白底方图需完整展示（不做 cover 裁切）
+// contain: true 用于白底抠图产品图（如表扣）：完整展示，不做 cover 裁切
 type HomeProduct = {
   img: string;
   title: string;
@@ -270,10 +270,10 @@ const products: HomeProduct[] = [
     border-radius: 6px;
     margin-bottom: 16px;
   }
-  /* 白底方图（表扣）：完整展示产品轮廓，不被上下裁切 */
+  /* 白底抠图产品（表扣）：完整展示不裁切，灰底补齐与其他产品图一致的视觉面积 */
   .card-img--contain {
     object-fit: contain;
-    padding: 0 12px;
+    background: var(--color-bg-gray);
   }
   .card-title {
     font-size: 18px;

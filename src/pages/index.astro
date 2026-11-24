@@ -11,7 +11,7 @@ const stats = [
     { value: "40K+", label: "Watch Cases / Month" },
 ];
 
-// contain: true keeps a white-background square image fully visible (no cover crop)
+// contain: true marks a white-background cut-out product image (clasp): show it whole, no cover crop
 type HomeProduct = {
     img: string;
     title: string;
@@ -275,10 +275,11 @@ const products: HomeProduct[] = [
         border-radius: 6px;
         margin-bottom: 16px;
     }
-    /* White-background square image (clasp): show the whole piece, no crop */
+    /* White-background cut-out product image (clasp): show it whole, and let the
+       gray backdrop fill the same visual area as the photo cards */
     .card-img--contain {
         object-fit: contain;
-        padding: 0 12px;
+        background: var(--color-bg-gray);
     }
     .card-title {
         font-size: 18px;
