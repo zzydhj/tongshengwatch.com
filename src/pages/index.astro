@@ -11,7 +11,16 @@ const stats = [
     { value: "40K+", label: "Watch Cases / Month" },
 ];
 
-const products = [
+// contain: true keeps a white-background square image fully visible (no cover crop)
+type HomeProduct = {
+    img: string;
+    title: string;
+    desc: string;
+    href: string;
+    contain?: boolean;
+};
+
+const products: HomeProduct[] = [
     {
         img: "https://tongshengwatch.zzydhj.com/products/solid-bracelet.jpg",
         title: "Solid Band",
@@ -39,7 +48,8 @@ const products = [
     {
         img: "/images/clasp.png",
         title: "Clasp",
-        desc: "Butterfly, deployant, box, safety, open-window and jewel clasps — seamlessly paired with all band types.",
+        contain: true,
+        desc: "A diversified range of precision clasps covering the complete watch accessory package — abundant clasp styles paired with our own bands, high machining accuracy, lasting durability and flexible bespoke development for brand-exclusive projects.",
         href: "/products/#spring",
     },
 ];
@@ -50,11 +60,14 @@ const products = [
     <section class="hero">
         <div class="hero-content">
             <h1 class="hero-title">
-                Two Decades of Precision Craft<br />Trusted by Global Watch
-                Brands
+                Two Decades of Precision Craft
+                <br />
+                Trusted by Global Watch Brands
             </h1>
             <p class="hero-slogan">Quality · Efficiency · Integrity</p>
-            <a href="/about/" class="btn btn-primary">Discover More</a>
+            <a href="/about/" class="btn btn-primary">
+                Discover More
+            </a>
         </div>
     </section>
 
@@ -63,14 +76,12 @@ const products = [
         <div class="container">
             <h2 class="section-title">Our Strength</h2>
             <div class="stats-grid">
-                {
-                    stats.map((item) => (
-                        <div class="stat-item">
-                            <div class="stat-value">{item.value}</div>
-                            <div class="stat-label">{item.label}</div>
-                        </div>
-                    ))
-                }
+                {stats.map((item) => (
+                    <div class="stat-item">
+                        <div class="stat-value">{item.value}</div>
+                        <div class="stat-label">{item.label}</div>
+                    </div>
+                ))}
             </div>
         </div>
     </section>
@@ -97,7 +108,9 @@ const products = [
                         cases — delivering a one-stop service from design to
                         finished shipment.
                     </p>
-                    <a href="/about/" class="btn btn-outline">Learn More</a>
+                    <a href="/about/" class="btn btn-outline">
+                        Learn More
+                    </a>
                 </div>
                 <div class="intro-image">
                     <img
@@ -114,25 +127,23 @@ const products = [
     <section class="section">
         <div class="container">
             <h2 class="section-title">Products & Services</h2>
-            <p class="section-subtitle">
-                Five major categories — solid bands, edge-wrapped bands, watch
-                cases, mesh bands and clasps — crafted from 304/316/904
-                stainless steel, ceramic, titanium and tantalum, fully
-                customizable to your brand's needs.
-            </p>
             <div class="cards-grid">
-                {
-                    products.map((p) => (
-                        <a href={p.href} class="card">
-                            <img src={p.img} alt={p.title} class="card-img" />
-                            <h3 class="card-title">{p.title}</h3>
-                            <p class="card-desc">{p.desc}</p>
-                        </a>
-                    ))
-                }
+                {products.map((p) => (
+                    <a href={p.href} class="card">
+                        <img
+                            src={p.img}
+                            alt={p.title}
+                            class={`card-img${p.contain ? " card-img--contain" : ""}`}
+                        />
+                        <h3 class="card-title">{p.title}</h3>
+                        <p class="card-desc">{p.desc}</p>
+                    </a>
+                ))}
             </div>
             <div class="center-btn">
-                <a href="/products/" class="btn btn-primary">View Products</a>
+                <a href="/products/" class="btn btn-primary">
+                    View Products
+                </a>
             </div>
         </div>
     </section>
@@ -263,6 +274,11 @@ const products = [
         object-fit: cover;
         border-radius: 6px;
         margin-bottom: 16px;
+    }
+    /* White-background square image (clasp): show the whole piece, no crop */
+    .card-img--contain {
+        object-fit: contain;
+        padding: 0 12px;
     }
     .card-title {
         font-size: 18px;

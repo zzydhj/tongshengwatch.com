@@ -62,8 +62,10 @@ export const contactInfo = {
       email: "tszb9999@163.com", emailLabel: "创盛包边带", emailLabelEn: "Edge Band",
     },
   ],
+  // 高德地图跳转链接（页脚/联系页「在高德地图中查看」+ 移动端底部快捷栏「地址」共用）
+  // 检索词只写到「门牌号」，带上楼室号会让高德匹配到错误地点
   mapUrl:
-    "http://m.amap.com/search/view/keywords=广东省东莞市东城街道榴花工业路6号1栋201室",
+    "https://uri.amap.com/search?keyword=东莞市东城街道榴花工业路6号&city=东莞",
   // 高德地图 JS API Key（在高德开放平台 lbs.amap.com 免费申请，Web端(JS API)类型）
   // 填上 key 和 securityJsCode 后，联系页会自动显示交互式地图；留空则只显示跳转链接
   amapKey: "f6ac9fc5eabc9f5d8d9215c26738cecc",
@@ -127,11 +129,13 @@ export const footerText = {
       { label: "发展历程", href: "/about/#history" },
       { label: "新闻动态", href: "/news/" },
     ],
+    // 网带与表扣分两行展示（不合并成「网带 · 表扣」）
     productLinks: [
       { label: "实心带", href: "/products/#solid" },
       { label: "包边带", href: "/products/#edge" },
       { label: "表壳", href: "/products/#case" },
-      { label: "网带 · 表扣", href: "/products/#mesh" },
+      { label: "网带", href: "/products/#mesh" },
+      { label: "表扣", href: "/products/#spring" },
     ],
   },
   en: {
@@ -148,7 +152,8 @@ export const footerText = {
       { label: "Solid Band", href: "/products/#solid" },
       { label: "Edge Band", href: "/products/#edge" },
       { label: "Watch Case", href: "/products/#case" },
-      { label: "Mesh · Clasp", href: "/products/#mesh" },
+      { label: "Mesh Band", href: "/products/#mesh" },
+      { label: "Clasp", href: "/products/#spring" },
     ],
   },
 };
@@ -161,7 +166,7 @@ export const mobileActions = {
     { label: "联系我们", href: "tel:13925827336", icon: "phone" },
     {
       label: "地址",
-      href: "http://m.amap.com/search/view/keywords=广东省东莞市东城街道榴花工业路6号1栋201室",
+      href: contactInfo.mapUrl,
       icon: "location",
     },
   ],
@@ -171,7 +176,7 @@ export const mobileActions = {
     { label: "Call", href: "tel:13925827336", icon: "phone" },
     {
       label: "Map",
-      href: "http://m.amap.com/search/view/keywords=广东省东莞市东城街道榴花工业路6号1栋201室",
+      href: contactInfo.mapUrl,
       icon: "location",
     },
   ],

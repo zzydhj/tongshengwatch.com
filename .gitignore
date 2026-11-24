@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# 客户提供的素材与需求文档（含大尺寸原图，不入库）
+/官网需要修改的内容.docx
+/新建文件夹/

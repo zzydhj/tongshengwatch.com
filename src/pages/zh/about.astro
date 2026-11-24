@@ -61,15 +61,28 @@ const certificates = [
   "多项自主研发新款（每年不少于100款）",
 ];
 
-// 证书扫描件（点击可看大图，图片放于 /public/images/certificates/）
+// 证书与系统截图扫描件（点击可看大图，图片放于 /public/images/certificates/）
+// 同一公司的中英文版本成对排列：同盛中 / 同盛英 / 创盛中 / 创盛英
 const certImages = [
+  {
+    title: "同盛钟表 · 质量管理体系认证证书（ISO 9001:2015）",
+    src: "/images/certificates/iso-tongsheng.jpg",
+  },
+  {
+    title: "同盛钟表 · 质量管理体系认证证书（英文版）",
+    src: "/images/certificates/iso-tongsheng-en.jpg",
+  },
   {
     title: "创盛钟表 · 质量管理体系认证证书（ISO 9001:2015）",
     src: "/images/certificates/iso-chuangsheng.jpg",
   },
   {
-    title: "同盛钟表 · 质量管理体系认证证书（ISO 9001:2015）",
-    src: "/images/certificates/iso-tongsheng.jpg",
+    title: "创盛钟表 · 质量管理体系认证证书（英文版）",
+    src: "/images/certificates/iso-chuangsheng-en.jpg",
+  },
+  {
+    title: "ERP 生产管理系统（生产进度查询）",
+    src: "/images/certificates/erp-system.jpg",
   },
 ];
 
@@ -79,14 +92,14 @@ const environment = [
   { title: "前台接待", src: "/images/environment/reception.jpg" },
   { title: "办公区", src: "/images/environment/office.jpg" },
   { title: "产品展厅", src: "/images/environment/showroom.jpg" },
-  { title: "CNC 加工车间", src: "/images/environment/workshop-cnc.jpg" },
-  { title: "自动化生产线", src: "/images/environment/production-line.jpg" },
-  { title: "装配车间", src: "/images/environment/assembly.jpg" },
-  { title: "精密加工作业", src: "/images/environment/processing.jpg" },
-  { title: "磨光车间", src: "/images/environment/polishing.jpg" },
-  { title: "数控设备", src: "/images/environment/cnc-equipment.jpg" },
-  { title: "自动机床车间", src: "/images/environment/auto-machines.jpg" },
-  { title: "手工磨光工位", src: "/images/environment/hand-polishing.jpg" },
+  { title: "自动对钻车间", src: "/images/environment/workshop-cnc.jpg" },
+  { title: "胚料生产车间", src: "/images/environment/blank-workshop.jpg" },
+  { title: "锣机车间", src: "/images/environment/assembly.jpg" },
+  { title: "磨光车间", src: "/images/environment/processing.jpg" },
+  { title: "排带车间", src: "/images/environment/band-assembly.jpg" },
+  { title: "NC车间", src: "/images/environment/cnc-equipment.jpg" },
+  { title: "CNC车间", src: "/images/environment/auto-machines.jpg" },
+  { title: "装配车间", src: "/images/environment/hand-polishing.jpg" },
 ];
 
 // 合作客户数据（品牌 logo 图片存放于线上 customer-logo 目录）
@@ -170,19 +183,17 @@ const clients = [
       <h2 class="section-title">公司环境</h2>
       <p class="section-subtitle">现代化生产基地 · 全流程自主加工</p>
       <div class="env-grid">
-        {
-          environment.map((item) => (
-            <a
-              class="env-item"
-              href={item.src}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src={item.src} alt={item.title} loading="lazy" />
-              <span class="env-cap">{item.title}</span>
-            </a>
-          ))
-        }
+        {environment.map((item) => (
+          <a
+            class="env-item"
+            href={item.src}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={item.src} alt={item.title} loading="lazy" />
+            <span class="env-cap">{item.title}</span>
+          </a>
+        ))}
       </div>
     </div>
   </section>
@@ -230,15 +241,13 @@ const clients = [
     <div class="container">
       <h2 class="section-title">发展历程</h2>
       <div class="timeline">
-        {
-          timeline.map((item) => (
-            <div class="timeline-item">
-              <div class="timeline-year">{item.year}年</div>
-              <div class="timeline-dot" />
-              <div class="timeline-text">{item.text}</div>
-            </div>
-          ))
-        }
+        {timeline.map((item) => (
+          <div class="timeline-item">
+            <div class="timeline-year">{item.year}年</div>
+            <div class="timeline-dot" />
+            <div class="timeline-text">{item.text}</div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -288,29 +297,25 @@ const clients = [
     <div class="container">
       <h2 class="section-title">资质证书</h2>
       <div class="cert-grid">
-        {
-          certificates.map((cert) => (
-            <div class="cert-item">
-              <div class="cert-icon">📜</div>
-              <span>{cert}</span>
-            </div>
-          ))
-        }
+        {certificates.map((cert) => (
+          <div class="cert-item">
+            <div class="cert-icon">📜</div>
+            <span>{cert}</span>
+          </div>
+        ))}
       </div>
       <div class="cert-photo-grid">
-        {
-          certImages.map((c) => (
-            <a
-              class="cert-photo"
-              href={c.src}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <img src={c.src} alt={c.title} loading="lazy" />
-              <span class="cert-photo-cap">{c.title}</span>
-            </a>
-          ))
-        }
+        {certImages.map((c) => (
+          <a
+            class="cert-photo"
+            href={c.src}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img src={c.src} alt={c.title} loading="lazy" />
+            <span class="cert-photo-cap">{c.title}</span>
+          </a>
+        ))}
       </div>
     </div>
   </section>
@@ -323,19 +328,17 @@ const clients = [
         作为世界中高端手表品牌的长期供应商，同盛·创盛钟表的客户涵盖以下国际知名品牌。
       </p>
       <div class="cert-grid client-grid">
-        {
-          clients.map((client) => (
-            <div class="cert-item client-item">
-              <img
-                class="client-logo"
-                src={logoUrl(client.logo)}
-                alt={client.name}
-                loading="lazy"
-              />
-              <span class="client-name">{client.name}</span>
-            </div>
-          ))
-        }
+        {clients.map((client) => (
+          <div class="cert-item client-item">
+            <img
+              class="client-logo"
+              src={logoUrl(client.logo)}
+              alt={client.name}
+              loading="lazy"
+            />
+            <span class="client-name">{client.name}</span>
+          </div>
+        ))}
       </div>
     </div>
   </section>

@@ -8,9 +8,6 @@ interface Props {
   data: {
     title: string;
     feature: string;
-    materials: string;
-    capacity: string;
-    styles?: string;
     image?: string;
     gallery?: string[];
     summary?: string;
@@ -33,8 +30,10 @@ const gallery =
 <BaseLayout
   lang={lang}
   title={data.title}
-  description={data.summary ??
-    `${data.title} - ${isEn ? "Tongsheng Watch Products" : "同盛钟表产品详情"}。`}
+  description={
+    data.summary ??
+    `${data.title} - ${isEn ? "Tongsheng Watch Products" : "同盛钟表产品详情"}。`
+  }
 >
   <!-- ====== 产品头部 ====== -->
   <section class="product-header">
@@ -42,9 +41,9 @@ const gallery =
       <nav class="breadcrumb">
         <a href={localizeHref("/", lang)}>{isEn ? "Home" : "首页"}</a>
         <span class="sep">&gt;</span>
-        <a href={localizeHref("/products/", lang)}
-          >{isEn ? "Products" : "产品服务"}</a
-        >
+        <a href={localizeHref("/products/", lang)}>
+          {isEn ? "Products" : "产品服务"}
+        </a>
         <span class="sep">&gt;</span>
         <span class="current">{data.title}</span>
       </nav>
@@ -53,47 +52,21 @@ const gallery =
     </div>
   </section>
 
-  <!-- ====== 关键信息条 ====== -->
-  <section class="meta-strip">
-    <div class="container">
-      <div class="meta-cards">
-        <div class="meta-card">
-          <span class="meta-label">{isEn ? "Material" : "材质"}</span>
-          <span class="meta-value">{data.materials}</span>
-        </div>
-        <div class="meta-card">
-          <span class="meta-label">{isEn ? "Capacity" : "产能"}</span>
-          <span class="meta-value">{data.capacity}</span>
-        </div>
-        {
-          data.styles && (
-            <div class="meta-card">
-              <span class="meta-label">{isEn ? "Styles" : "款式"}</span>
-              <span class="meta-value">{data.styles}</span>
-            </div>
-          )
-        }
-      </div>
-    </div>
-  </section>
-
   <!-- ====== 产品图赏（可随时追加图片） ====== -->
-  {
-    gallery.length > 0 && (
-      <section class="section gallery-section">
-        <div class="container">
-          <h2 class="gallery-title">{isEn ? "Product Gallery" : "产品图赏"}</h2>
-          <div class="gallery-grid">
-            {gallery.map((src) => (
-              <div class="gallery-item">
-                <img src={src} alt={data.title} loading="lazy" />
-              </div>
-            ))}
-          </div>
+  {gallery.length > 0 && (
+    <section class="section gallery-section">
+      <div class="container">
+        <h2 class="gallery-title">{isEn ? "Product Gallery" : "产品图赏"}</h2>
+        <div class="gallery-grid">
+          {gallery.map((src) => (
+            <div class="gallery-item">
+              <img src={src} alt={data.title} loading="lazy" />
+            </div>
+          ))}
         </div>
-      </section>
-    )
-  }
+      </div>
+    </section>
+  )}
 
   <!-- ====== 产品详情正文（MDX 内容渲染在这里） ====== -->
   <section class="section">
@@ -103,12 +76,12 @@ const gallery =
       </div>
 
       <div class="back-wrap">
-        <a href={localizeHref("/products/", lang)} class="btn btn-outline"
-          >&larr; {isEn ? "Back to Products" : "返回产品服务"}</a
-        >
-        <a href={localizeHref("/contact/", lang)} class="btn btn-primary"
-          >{isEn ? "Request a Quote" : "咨询定制"}</a
-        >
+        <a href={localizeHref("/products/", lang)} class="btn btn-outline">
+          &larr; {isEn ? "Back to Products" : "返回产品服务"}
+        </a>
+        <a href={localizeHref("/contact/", lang)} class="btn btn-primary">
+          {isEn ? "Request a Quote" : "咨询定制"}
+        </a>
       </div>
     </div>
   </section>
@@ -162,42 +135,6 @@ const gallery =
     .product-title {
       font-size: 24px;
     }
-  }
-
-  /* 关键信息条 */
-  .meta-strip {
-    background: var(--color-bg-gray);
-    border-bottom: 1px solid var(--color-border);
-    padding: 24px 0;
-  }
-  .meta-cards {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 16px;
-  }
-  @media (min-width: 768px) {
-    .meta-cards {
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    }
-  }
-  .meta-card {
-    background: #fff;
-    border: 1px solid var(--color-border);
-    border-radius: 8px;
-    padding: 16px 22px;
-    display: flex;
-    gap: 18px;
-    align-items: baseline;
-    font-size: 14px;
-  }
-  .meta-label {
-    flex-shrink: 0;
-    color: var(--color-accent);
-    font-weight: 600;
-  }
-  .meta-value {
-    color: var(--color-text-light);
-    line-height: 1.7;
   }
 
   /* 产品图赏 */

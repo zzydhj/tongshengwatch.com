@@ -52,7 +52,7 @@ const productInfo: Record<
     spring: {
         title: "Clasp",
         feature: "Multi-Structure · Secure Lock",
-        desc: "Butterfly, deployant, box, safety, open-window and jewel clasps — seamlessly paired with all band types. Smooth action, secure lock, made to drawing or sample.",
+        desc: "A diversified range of precision clasps covering the complete watch accessory package — abundant clasp styles paired with our own bands, high machining accuracy, lasting durability and flexible bespoke development for brand-exclusive projects.",
         materials: "304/316/904 Stainless Steel / Titanium Alloy",
         capacity: "Custom to drawing or sample",
     },
@@ -132,62 +132,55 @@ const promises = [
     </section>
 
     <!-- ====== Five Products ====== -->
-    {
-        collectionProducts.map((p, i) => {
-            const info = productInfo[p.id] || {
-                title: p.data.title,
-                feature: p.data.feature,
-                desc: p.data.desc,
-                materials: p.data.materials,
-                capacity: p.data.capacity,
-            };
-            return (
-                <section
-                    class={`section${i % 2 === 1 ? " bg-gray" : ""}`}
-                    id={p.id}
-                >
-                    <div class="container">
-                        <div class="product-block">
-                            <div class="product-info">
-                                <span class="product-feature">
-                                    {info.feature}
-                                </span>
-                                <h2 class="product-title">{info.title}</h2>
-                                <p class="product-desc">{info.desc}</p>
-                                <div class="product-meta">
-                                    <div class="meta-item">
-                                        <span class="meta-label">Material</span>
-                                        <span class="meta-value">
-                                            {info.materials}
-                                        </span>
-                                    </div>
-                                    <div class="meta-item">
-                                        <span class="meta-label">Capacity</span>
-                                        <span class="meta-value">
-                                            {info.capacity}
-                                        </span>
-                                    </div>
+    {collectionProducts.map((p, i) => {
+        const info = productInfo[p.id] || {
+            title: p.data.title,
+            feature: p.data.feature,
+            desc: p.data.desc,
+            materials: p.data.materials,
+            capacity: p.data.capacity,
+        };
+        return (
+            <section
+                class={`section${i % 2 === 1 ? " bg-gray" : ""}`}
+                id={p.id}
+            >
+                <div class="container">
+                    <div class="product-block">
+                        <div class="product-info">
+                            <span class="product-feature">{info.feature}</span>
+                            <h2 class="product-title">{info.title}</h2>
+                            <p class="product-desc">{info.desc}</p>
+                            <div class="product-meta">
+                                <div class="meta-item">
+                                    <span class="meta-label">Material</span>
+                                    <span class="meta-value">
+                                        {info.materials}
+                                    </span>
                                 </div>
-                                <a
-                                    class="product-more"
-                                    href={`/products/${p.id}/`}
-                                >
-                                    View Details →
-                                </a>
+                                <div class="meta-item">
+                                    <span class="meta-label">Capacity</span>
+                                    <span class="meta-value">
+                                        {info.capacity}
+                                    </span>
+                                </div>
                             </div>
-                            <div class="product-image">
-                                <img
-                                    src={p.data.image}
-                                    alt={info.title}
-                                    class="product-img"
-                                />
-                            </div>
+                            <a class="product-more" href={`/products/${p.id}/`}>
+                                View Details →
+                            </a>
+                        </div>
+                        <div class="product-image">
+                            <img
+                                src={p.data.image}
+                                alt={info.title}
+                                class="product-img"
+                            />
                         </div>
                     </div>
-                </section>
-            );
-        })
-    }
+                </div>
+            </section>
+        );
+    })}
 
     <!-- ====== Our Promise ====== -->
     <section class="section bg-gray" id="promise">
@@ -198,18 +191,18 @@ const promises = [
                 confidence.
             </p>
             <div class="cards-grid cols-4">
-                {
-                    promises.map((item) => (
-                        <div class="card">
-                            <div class="card-icon">{item.icon}</div>
-                            <h3 class="card-title">{item.title}</h3>
-                            <p class="card-desc">{item.desc}</p>
-                        </div>
-                    ))
-                }
+                {promises.map((item) => (
+                    <div class="card">
+                        <div class="card-icon">{item.icon}</div>
+                        <h3 class="card-title">{item.title}</h3>
+                        <p class="card-desc">{item.desc}</p>
+                    </div>
+                ))}
             </div>
             <div class="center-btn">
-                <a href="/contact/" class="btn btn-primary">Request a Quote</a>
+                <a href="/contact/" class="btn btn-primary">
+                    Request a Quote
+                </a>
             </div>
         </div>
     </section>

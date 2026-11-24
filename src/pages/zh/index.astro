@@ -14,7 +14,16 @@ const stats = [
 ];
 
 // 五大主营产品（img 为线上真实产品图）
-const products = [
+// contain: true 表示白底方图需完整展示（不做 cover 裁切）
+type HomeProduct = {
+  img: string;
+  title: string;
+  desc: string;
+  href: string;
+  contain?: boolean;
+};
+
+const products: HomeProduct[] = [
   {
     img: "https://tongshengwatch.zzydhj.com/products/solid-bracelet.jpg",
     title: "实心带",
@@ -42,7 +51,8 @@ const products = [
   {
     img: "/images/clasp.png",
     title: "表扣",
-    desc: "蝴蝶扣、龟背扣、盒仔扣、保险扣、开天窗扣、珠宝扣等多种结构，可与各类表带无缝配套，支持来图来样定制。",
+    contain: true,
+    desc: "围绕腕表整套配件需求，我们提供多元化精密表扣方案。丰富扣型可与自有表带组合配套，加工精度高、耐用性强，灵活承接品牌专属定制开发。",
     href: "/products/#spring",
   },
 ];
@@ -53,10 +63,14 @@ const products = [
   <section class="hero">
     <div class="hero-content">
       <h1 class="hero-title">
-        深耕中高端手表配件二十载<br />为全球腕表品牌打造精工品质
+        深耕中高端手表配件二十载
+        <br />
+        为全球腕表品牌打造精工品质
       </h1>
       <p class="hero-slogan">优质 · 高效 · 诚信</p>
-      <a href="/zh/about/" class="btn btn-primary">了解企业</a>
+      <a href="/zh/about/" class="btn btn-primary">
+        了解企业
+      </a>
     </div>
   </section>
 
@@ -65,14 +79,12 @@ const products = [
     <div class="container">
       <h2 class="section-title">企业实力</h2>
       <div class="stats-grid">
-        {
-          stats.map((item) => (
-            <div class="stat-item">
-              <div class="stat-value">{item.value}</div>
-              <div class="stat-label">{item.label}</div>
-            </div>
-          ))
-        }
+        {stats.map((item) => (
+          <div class="stat-item">
+            <div class="stat-value">{item.value}</div>
+            <div class="stat-label">{item.label}</div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -89,7 +101,9 @@ const products = [
           <p class="block-desc">
             旗下兄弟企业东莞市创盛钟表有限公司是一家集不锈钢包边带、网带、表壳研发、生产、加工于一体的专业腕表配件企业，可提供从来图设计、研发生产到成品出货的一站式定制服务。
           </p>
-          <a href="/zh/about/" class="btn btn-outline">了解详情</a>
+          <a href="/zh/about/" class="btn btn-outline">
+            了解详情
+          </a>
         </div>
         <div class="intro-image">
           <!-- 替换成你的图片: <img src="/images/xxx.jpg" alt="企业简介" /> -->
@@ -107,22 +121,23 @@ const products = [
   <section class="section">
     <div class="container">
       <h2 class="section-title">产品与服务</h2>
-      <p class="section-subtitle">
-        公司提供实心带、包边带、表壳、网带、表扣五大品类，材质涵盖304/316/904不锈钢、6063航空铝、钛2、钛5及钽等高端品类，可根据客户需求提供定制服务。
-      </p>
       <div class="cards-grid">
-        {
-          products.map((p) => (
-            <a href={p.href} class="card">
-              <img src={p.img} alt={p.title} class="card-img" />
-              <h3 class="card-title">{p.title}</h3>
-              <p class="card-desc">{p.desc}</p>
-            </a>
-          ))
-        }
+        {products.map((p) => (
+          <a href={p.href} class="card">
+            <img
+              src={p.img}
+              alt={p.title}
+              class={`card-img${p.contain ? " card-img--contain" : ""}`}
+            />
+            <h3 class="card-title">{p.title}</h3>
+            <p class="card-desc">{p.desc}</p>
+          </a>
+        ))}
       </div>
       <div class="center-btn">
-        <a href="/zh/products/" class="btn btn-primary">查看产品</a>
+        <a href="/zh/products/" class="btn btn-primary">
+          查看产品
+        </a>
       </div>
     </div>
   </section>
@@ -254,6 +269,11 @@ const products = [
     object-fit: cover;
     border-radius: 6px;
     margin-bottom: 16px;
+  }
+  /* 白底方图（表扣）：完整展示产品轮廓，不被上下裁切 */
+  .card-img--contain {
+    object-fit: contain;
+    padding: 0 12px;
   }
   .card-title {
     font-size: 18px;

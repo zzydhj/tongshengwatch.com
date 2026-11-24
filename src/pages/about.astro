@@ -57,15 +57,28 @@ const certificates = [
     "100+ New Designs Developed Annually",
 ];
 
-// Certificate scans (click to view full size; images live in /public/images/certificates/)
+// Certificate & system screenshots (click to view full size; images live in /public/images/certificates/)
+// Chinese and English versions of the same certificate are paired: Tongsheng CN / Tongsheng EN / Chuangsheng CN / Chuangsheng EN
 const certImages = [
+    {
+        title: "Tongsheng Watch · Quality Management System Certificate (ISO 9001:2015)",
+        src: "/images/certificates/iso-tongsheng.jpg",
+    },
+    {
+        title: "Tongsheng Watch · Quality Management System Certificate (English Version)",
+        src: "/images/certificates/iso-tongsheng-en.jpg",
+    },
     {
         title: "Chuangsheng Watch · Quality Management System Certificate (ISO 9001:2015)",
         src: "/images/certificates/iso-chuangsheng.jpg",
     },
     {
-        title: "Tongsheng Watch · Quality Management System Certificate (ISO 9001:2015)",
-        src: "/images/certificates/iso-tongsheng.jpg",
+        title: "Chuangsheng Watch · Quality Management System Certificate (English Version)",
+        src: "/images/certificates/iso-chuangsheng-en.jpg",
+    },
+    {
+        title: "ERP Production Management System (Progress Tracking)",
+        src: "/images/certificates/erp-system.jpg",
     },
 ];
 
@@ -78,24 +91,24 @@ const environment = [
     { title: "Reception", src: "/images/environment/reception.jpg" },
     { title: "Office Area", src: "/images/environment/office.jpg" },
     { title: "Product Showroom", src: "/images/environment/showroom.jpg" },
-    { title: "CNC Workshop", src: "/images/environment/workshop-cnc.jpg" },
     {
-        title: "Automated Production Line",
-        src: "/images/environment/production-line.jpg",
-    },
-    { title: "Assembly Workshop", src: "/images/environment/assembly.jpg" },
-    {
-        title: "Precision Processing",
-        src: "/images/environment/processing.jpg",
-    },
-    { title: "Polishing Workshop", src: "/images/environment/polishing.jpg" },
-    { title: "CNC Equipment", src: "/images/environment/cnc-equipment.jpg" },
-    {
-        title: "Automatic Machine Workshop",
-        src: "/images/environment/auto-machines.jpg",
+        title: "Auto Drilling Workshop",
+        src: "/images/environment/workshop-cnc.jpg",
     },
     {
-        title: "Hand-Polishing Stations",
+        title: "Blank Production Workshop",
+        src: "/images/environment/blank-workshop.jpg",
+    },
+    { title: "Milling Workshop", src: "/images/environment/assembly.jpg" },
+    { title: "Polishing Workshop", src: "/images/environment/processing.jpg" },
+    {
+        title: "Band Assembly Workshop",
+        src: "/images/environment/band-assembly.jpg",
+    },
+    { title: "NC Workshop", src: "/images/environment/cnc-equipment.jpg" },
+    { title: "CNC Workshop", src: "/images/environment/auto-machines.jpg" },
+    {
+        title: "Assembly Workshop",
         src: "/images/environment/hand-polishing.jpg",
     },
 ];
@@ -207,23 +220,17 @@ const clients = [
                 Modern production base · Full-process in-house manufacturing
             </p>
             <div class="env-grid">
-                {
-                    environment.map((item) => (
-                        <a
-                            class="env-item"
-                            href={item.src}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                src={item.src}
-                                alt={item.title}
-                                loading="lazy"
-                            />
-                            <span class="env-cap">{item.title}</span>
-                        </a>
-                    ))
-                }
+                {environment.map((item) => (
+                    <a
+                        class="env-item"
+                        href={item.src}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <img src={item.src} alt={item.title} loading="lazy" />
+                        <span class="env-cap">{item.title}</span>
+                    </a>
+                ))}
             </div>
         </div>
     </section>
@@ -275,15 +282,13 @@ const clients = [
         <div class="container">
             <h2 class="section-title">History</h2>
             <div class="timeline">
-                {
-                    timeline.map((item) => (
-                        <div class="timeline-item">
-                            <div class="timeline-year">{item.year}</div>
-                            <div class="timeline-dot" />
-                            <div class="timeline-text">{item.text}</div>
-                        </div>
-                    ))
-                }
+                {timeline.map((item) => (
+                    <div class="timeline-item">
+                        <div class="timeline-year">{item.year}</div>
+                        <div class="timeline-dot" />
+                        <div class="timeline-text">{item.text}</div>
+                    </div>
+                ))}
             </div>
         </div>
     </section>
@@ -339,29 +344,25 @@ const clients = [
         <div class="container">
             <h2 class="section-title">Certifications</h2>
             <div class="cert-grid">
-                {
-                    certificates.map((cert) => (
-                        <div class="cert-item">
-                            <div class="cert-icon">📜</div>
-                            <span>{cert}</span>
-                        </div>
-                    ))
-                }
+                {certificates.map((cert) => (
+                    <div class="cert-item">
+                        <div class="cert-icon">📜</div>
+                        <span>{cert}</span>
+                    </div>
+                ))}
             </div>
             <div class="cert-photo-grid">
-                {
-                    certImages.map((c) => (
-                        <a
-                            class="cert-photo"
-                            href={c.src}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img src={c.src} alt={c.title} loading="lazy" />
-                            <span class="cert-photo-cap">{c.title}</span>
-                        </a>
-                    ))
-                }
+                {certImages.map((c) => (
+                    <a
+                        class="cert-photo"
+                        href={c.src}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <img src={c.src} alt={c.title} loading="lazy" />
+                        <span class="cert-photo-cap">{c.title}</span>
+                    </a>
+                ))}
             </div>
         </div>
     </section>
@@ -376,19 +377,17 @@ const clients = [
                 renowned brands.
             </p>
             <div class="cert-grid client-grid">
-                {
-                    clients.map((client) => (
-                        <div class="cert-item client-item">
-                            <img
-                                class="client-logo"
-                                src={logoUrl(client.logo)}
-                                alt={client.name}
-                                loading="lazy"
-                            />
-                            <span class="client-name">{client.name}</span>
-                        </div>
-                    ))
-                }
+                {clients.map((client) => (
+                    <div class="cert-item client-item">
+                        <img
+                            class="client-logo"
+                            src={logoUrl(client.logo)}
+                            alt={client.name}
+                            loading="lazy"
+                        />
+                        <span class="client-name">{client.name}</span>
+                    </div>
+                ))}
             </div>
         </div>
     </section>
